@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Montserrat:wght@200;300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/* font-family: 'Belanosima', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Poppins', sans-serif; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-rose-600: #e11d48;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  width: 100vw;
+  /* height: 300vh; */
+  overflow-x: hidden;
+}
