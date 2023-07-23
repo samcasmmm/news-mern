@@ -10,7 +10,7 @@ header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.9rem;
+  padding: 1rem;
   font-size: 14px;
   width: 1150px;
 }
@@ -44,7 +44,7 @@ header .links-icons .icons .icon:hover {
   transition: all 0.3s ease-in-out;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 768px) {
   header .links-icons .links {
     display: none;
   }

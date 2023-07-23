@@ -1,5 +1,5 @@
 import './header.css';
-
+import { CurrentDate } from '../../utils/Utilities';
 import { ImFacebook, ImTwitter } from 'react-icons/im';
 import { AiFillInstagram } from 'react-icons/ai';
 
@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header>
       <div className='container'>
-        <div className='head-dates'>Tuesday, July 18, 2023</div>
+        <div className='head-dates'>{CurrentDate()}</div>
         <div className='links-icons'>
           <div className='links'>
             <p>Career</p>

@@ -53,6 +53,7 @@ nav .container ul li .search input {
 }
 nav .container ul li .search svg {
   font-size: 20px;
+  z-index: 100;
 }
 nav .container .mobile-nav {
   display: none;
@@ -120,9 +121,10 @@ nav .container ul li:hover .dropbtn {
     top: 0;
     left: -100%;
     transition: all 0.3s ease-in-out;
+    z-index: 100;
   }
   nav .container .mobile-nav .content {
-    width: 60%;
+    width: 80%;
     background: white;
     padding-top: 2rem;
     display: flex;
@@ -172,7 +174,7 @@ nav .container ul li:hover .dropbtn {
   nav .container .mobile-nav .title.xmark {
     position: absolute;
     top: 1rem;
-    left: 61%;
+    left: 82%;
     color: var(--color-white);
     font-size: 20px;
     font-weight: bolder;
