@@ -37,3 +37,70 @@ export const HeroData = [
     link: 'https://www.gadgetsnow.com/tech-news/indias-upi-to-now-work-in-one-more-country/articleshow/102018979.cms',
   },
 ];
+
+export const scrollCardData = [
+  {
+    id: 1,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 2,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 3,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 4,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 5,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 6,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 7,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+  {
+    id: 8,
+    image: 'https://retnews.netlify.app/images/medium/newsimage6.png',
+    author: 'David Hall',
+    date: '20/05/2023',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+  },
+];

@@ -12,6 +12,7 @@ font-family: 'Poppins', sans-serif; */
   --color-white: #fff;
   --color-black: #000;
   --color-rose-600: #e11d48;
+  --color-gray: #adb5bd;
 }
 body {
   font-family: 'Poppins', sans-serif;

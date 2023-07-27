@@ -1,7 +1,7 @@
 import './hero.css';
-import { HeroData } from '../../data/Data';
-import { showFewWords } from './../../utils/Utilities';
-
+import { HeroData, scrollCardData } from '../../data/Data';
+import { showFewWords, CurrentDate } from './../../utils/Utilities';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 const Hero = () => {
   const prevButton = () => {
     const scroll = document.querySelector('#scroll-content');
@@ -32,15 +32,22 @@ const Hero = () => {
       </div>
       <div className='scroll-story'>
         <div className='prev' onClick={() => prevButton()}>
-          prev
+          <FiChevronLeft />
         </div>
         <div className='content' id='scroll-content'>
-          {Array.from({ length: 10 }).map((item, index) => (
-            <div key={index} className='box'></div>
+          {scrollCardData.map((item) => (
+            <div key={item.id} className='box'>
+              <img src={item.image} alt={showFewWords(item.title, 5)} />
+              <div className='box-content'>
+                <p className='author'>By {item.author}</p>
+                <p className='date'>{item.date}</p>
+                <p className='title'>{item.title}</p>
+              </div>
+            </div>
           ))}
         </div>
         <div className='next' onClick={() => nextButton()}>
-          next
+          <FiChevronRight />
         </div>
       </div>
     </div>
