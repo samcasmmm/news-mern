@@ -89,26 +89,47 @@ const getUser = asyncHandler(async (req, res, next) => {
 // @ route   -  GET /api/users/
 // ? access  -  Private
 const getAllUser = asyncHandler(async (req, res, next) => {
-  const { userType } = req.query;
+  const { userType, page = 1, perPage = 10 } = req.query;
 
   try {
     let query = {};
 
-    if (userType === 'user') {
-      query = { userType: 'user' };
-    } else if (userType === 'admin') {
-      query = { userType: 'admin' };
-    } else if (userType === 'employee') {
-      query = { userType: 'employee' };
+    if (userType === 'all') {
+    } else if (
+      userType === 'user' ||
+      userType === 'admin' ||
+      userType === 'employee'
+    ) {
+      query = { userType: userType };
+    } else {
+      return res.status(400).json({
+        message: 'Invalid userType',
+        status: 'error',
+      });
     }
 
-    const users = await User.find(query).select('-password');
-    const totalUsers = users.length;
+    const totalUsers = await User.countDocuments(query);
+    const totalPages = Math.ceil(totalUsers / perPage);
+
+    if (page > totalPages) {
+      return res.status(400).json({
+        message: 'Invalid page number',
+        status: 'error',
+      });
+    }
+
+    const users = await User.find(query)
+      .select('-password')
+      .skip((page - 1) * perPage)
+      .limit(Number(perPage));
 
     res.status(200).json({
       message: 'Users fetched successfully',
       status: 'success',
       total: totalUsers,
+      perPage: perPage,
+      page: Number(page),
+      totalPages: totalPages,
       users: users,
     });
   } catch (error) {
