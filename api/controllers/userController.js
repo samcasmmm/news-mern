@@ -89,9 +89,30 @@ const getUser = asyncHandler(async (req, res, next) => {
 // @ route   -  GET /api/users/
 // ? access  -  Private
 const getAllUser = asyncHandler(async (req, res, next) => {
-  res.send({
-    message: 'Get All Users',
-  });
+  const { userType } = req.query;
+
+  try {
+    let query = {}; // Default query to fetch all users
+
+    if (userType === 'user') {
+      query = { userType: 'user' };
+    } else if (userType === 'admin') {
+      query = { userType: 'admin' };
+    }
+
+    const users = await User.find(query).select('-password');
+
+    res.status(200).json({
+      message: 'Users fetched successfully',
+      status: 'success',
+      users: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'An error occurred while fetching users',
+      status: 'error',
+    });
+  }
 });
 
 export {
