@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 
 import connectDB from './config/database.js';
 import { notFoundMiddleware } from './middlewares/errorMiddleware.js';
+import userRoutes from './routes/userRoutes.js';
 
 // Middleware
 const app = express();
@@ -26,6 +27,8 @@ app.get('/', (req, res) => {
     statusCode: res.statusCode,
   });
 });
+
+app.use('/api/users', userRoutes);
 
 // Error Middleware
 app.use(notFoundMiddleware);
