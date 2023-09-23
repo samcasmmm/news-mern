@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userSchema.js';
+import generateToken from './../utils/generateToken.js';
 
 // --  desc   -  Auth user/set token
 // @ route    -  POST /api/users/auth
@@ -14,8 +15,37 @@ const authUser = asyncHandler(async (req, res, next) => {
 // @ route   -  POST /api/users/
 // ? access  -  Public
 const createUser = asyncHandler(async (req, res, next) => {
-  res.json({
-    message: 'Create User',
+  const { name, email, userType, password } = req.body;
+
+  const userExists = await User.findOne({ email: email });
+
+  if (userExists) {
+    return res.status(409).json({
+      statusCode: 409,
+      error: 'User Exists',
+      message: 'User already exists. Please login.',
+    });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({
+      statusCode: 400,
+      error: 'Invalid Password',
+      message: 'Password must be at least 6 characters long.',
+    });
+  }
+
+  const user = await User.create({ name, email, userType, password });
+
+  const { password: _password, ...newUser } = user._doc;
+
+  const token = generateToken(res, user._id);
+
+  return res.status(201).json({
+    message: 'User created successfully',
+    success: true,
+    user: newUser,
+    token,
   });
 });
 

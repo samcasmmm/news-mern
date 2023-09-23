@@ -7,21 +7,21 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: String, // admin | editor | user
-      default: 'user',
-    },
     email: {
       type: String,
       required: true,
       unique: true,
+    },
+    userType: {
+      type: String,
+      default: 'user',
     },
     password: {
       type: String,
       required: true,
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 userSchema.pre('save', async function (next) {
