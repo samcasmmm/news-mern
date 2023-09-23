@@ -92,19 +92,23 @@ const getAllUser = asyncHandler(async (req, res, next) => {
   const { userType } = req.query;
 
   try {
-    let query = {}; // Default query to fetch all users
+    let query = {};
 
     if (userType === 'user') {
       query = { userType: 'user' };
     } else if (userType === 'admin') {
       query = { userType: 'admin' };
+    } else if (userType === 'employee') {
+      query = { userType: 'employee' };
     }
 
     const users = await User.find(query).select('-password');
+    const totalUsers = users.length;
 
     res.status(200).json({
       message: 'Users fetched successfully',
       status: 'success',
+      total: totalUsers,
       users: users,
     });
   } catch (error) {
