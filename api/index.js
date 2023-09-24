@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 
 // File Imports
 
-import connectDB from './config/database.js';
+import connectDatabase from './config/MongoDb.js';
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
 
@@ -37,7 +37,7 @@ app.use(errorHandler);
 
 const startServer = async () => {
   try {
-    connectDB(process.env.MONGODB_URL);
+    connectDatabase();
   } catch (error) {
     console.log(error);
   }

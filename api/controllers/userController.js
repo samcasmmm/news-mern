@@ -2,9 +2,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/userSchema.js';
 import generateToken from './../utils/generateToken.js';
 
-// --  desc   -  Auth user/set token
-// @ route    -  POST /api/users/auth
-// ? access   -  Public
+// @ route    -  POST /api/users/login
 const authUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -27,9 +25,7 @@ const authUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// -- desc   -  Create a User
 // @ route   -  POST /api/users/
-// ? access  -  Public
 const createUser = asyncHandler(async (req, res, next) => {
   const { name, email, userType, password } = req.body;
 
@@ -66,32 +62,36 @@ const createUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// -- desc   -  Logout a User
 // @ route   -  POST /api/users/logout
-// ? access  -  Public
 const logoutUser = asyncHandler(async (req, res, next) => {
   res.json({
     message: 'Logout User',
   });
 });
 
-// -- desc   -  Get User Profile
 // @ route   -  GET /api/users/profile
-// ? access -  Public
 const userProfile = asyncHandler(async (req, res, next) => {
-  res.json({
-    message: 'User Profile',
-  });
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      userType: user.userType,
+      createdAt: user.createdAt,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
-// -- desc   -  Update User
 // @ route   -  PUT /api/users/profile
-// ? access  -  Public
 const updateUser = asyncHandler(async (req, res, next) => {
   const { name, email, userType, password } = req.body;
-  const user1 = await User.findById(req.user._id);
-  console.log(user1);
-  const user = await User.findOne({ email });
+  const user = await User.findById(req.user._id);
+  // const user = await User.findOne({ email });
 
   if (user) {
     user.name = name || user.name;
@@ -116,18 +116,14 @@ const updateUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// -- desc   -  Get a User
 // @ route   -  GET /api/users/:id
-// ? access  -  Private
 const getUser = asyncHandler(async (req, res, next) => {
   res.json({
     message: 'Get A Users',
   });
 });
 
-// -- desc   -  Get all User
 // @ route   -  GET /api/users/
-// ? access  -  Private
 const getAllUser = asyncHandler(async (req, res, next) => {
   const { userType, page = 1, perPage = 10 } = req.query;
 

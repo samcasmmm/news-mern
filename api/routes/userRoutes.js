@@ -8,16 +8,17 @@ import {
   getUser,
   getAllUser,
 } from '../controllers/userController.js';
+import { protect } from '../middlewares/AuthMiddleware.js';
 
 const router = express.Router();
 
-router.post('/auth', authUser);
+router.post('/login', authUser);
 
 router.post('/', createUser);
 
 router.post('/logout', logoutUser);
 
-router.route('/profile').get(userProfile).put(updateUser);
+router.route('/profile').all(protect).get(userProfile).put(updateUser);
 
 router.get('/:id', getUser);
 
