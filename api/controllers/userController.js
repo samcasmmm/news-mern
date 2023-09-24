@@ -88,9 +88,32 @@ const userProfile = asyncHandler(async (req, res, next) => {
 // @ route   -  PUT /api/users/profile
 // ? access  -  Public
 const updateUser = asyncHandler(async (req, res, next) => {
-  res.json({
-    message: 'Update Users',
-  });
+  const { name, email, userType, password } = req.body;
+  const user1 = await User.findById(req.user._id);
+  console.log(user1);
+  const user = await User.findOne({ email });
+
+  if (user) {
+    user.name = name || user.name;
+    user.email = email || user.email;
+    if (req.body.userType) {
+      user.userType = userType;
+    }
+    if (req.body.password) {
+      user.password = password;
+    }
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      userType: updatedUser.userType,
+      token: generateToken(res, updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // -- desc   -  Get a User
