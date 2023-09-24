@@ -75,11 +75,16 @@ const userProfile = asyncHandler(async (req, res, next) => {
 
   if (user) {
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      userType: user.userType,
-      createdAt: user.createdAt,
+      status: res.statusCode,
+      message: 'Fetch Profile Successfully',
+      meta: '',
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+        createdAt: user.createdAt,
+      },
     });
   } else {
     res.status(404);
@@ -91,8 +96,6 @@ const userProfile = asyncHandler(async (req, res, next) => {
 const updateUser = asyncHandler(async (req, res, next) => {
   const { name, email, userType, password } = req.body;
   const user = await User.findById(req.user._id);
-  // const user = await User.findOne({ email });
-
   if (user) {
     user.name = name || user.name;
     user.email = email || user.email;
@@ -104,11 +107,16 @@ const updateUser = asyncHandler(async (req, res, next) => {
     }
     const updatedUser = await user.save();
     res.json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      userType: updatedUser.userType,
-      token: generateToken(res, updatedUser._id),
+      status: res.statusCode,
+      message: 'Profile Update Successfully',
+      meta: '',
+      data: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        userType: updatedUser.userType,
+        token: generateToken(res, updatedUser._id),
+      },
     });
   } else {
     res.status(404);
