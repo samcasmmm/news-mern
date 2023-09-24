@@ -10,20 +10,20 @@ const authUser = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({
-      statusCode: res.statusCode,
+      status: res.statusCode,
       message: 'Logged In.',
-      user: {
+      meta: '',
+      data: {
         _id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.userType,
+        userType: user.userType,
         token: generateToken(res, user._id),
       },
     });
   } else {
     res.status(401);
     throw new Error('Invalid Email or Password');
-    // next({ message: 'Invalid Email or Password' });
   }
 });
 
@@ -36,33 +36,34 @@ const createUser = asyncHandler(async (req, res, next) => {
   const userExists = await User.findOne({ email: email });
 
   if (userExists) {
-    return res.status(409).json({
-      statusCode: 409,
-      error: 'User Exists',
-      message: 'User already exists. Please login.',
-    });
+    res.status(403);
+    throw new Error('User Already Exists');
   }
 
   if (password.length < 6) {
-    return res.status(400).json({
-      statusCode: 400,
-      error: 'Invalid Password',
-      message: 'Password must be at least 6 characters long.',
-    });
+    res.status(403);
+    throw new Error('Password must be at least 6 characters long.');
   }
 
   const user = await User.create({ name, email, userType, password });
 
-  const { password: _password, ...newUser } = user._doc;
-
-  const token = generateToken(res, user._id);
-
-  return res.status(201).json({
-    message: 'User created successfully',
-    success: true,
-    user: newUser,
-    token,
-  });
+  if (user) {
+    res.json({
+      status: res.statusCode,
+      message: 'User Created.',
+      meta: '',
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+        token: generateToken(res, user._id),
+      },
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid User Data');
+  }
 });
 
 // -- desc   -  Logout a User
