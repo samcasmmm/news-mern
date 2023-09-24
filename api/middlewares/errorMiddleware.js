@@ -1,20 +1,16 @@
-export const notFoundMiddleware = (req, res, next) => {
-  const error = new Error(`Not Found - ${req.originalUrl}`);
+const notFound = (req, res, next) => {
+  const error = new Error(`Not found - ${req.originalUrl}`);
   res.status(404);
-  if (process.env.NODE_ENV !== 'production') {
-    res.json({
-      Error: error.name,
-      status: res.statusCode,
-      Message: error.message,
-    });
-    //  console.log(error.name);
-  } else {
-    next(error);
-    res.json({
-      Error: error.name,
-      status: res.statusCode,
-      Message: error.message,
-      Stack: error.stack,
-    });
-  }
+  next(error);
 };
+
+const errorHandler = (err, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode).json({
+    statusCode,
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+  });
+};
+
+export { notFound, errorHandler };

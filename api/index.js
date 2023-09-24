@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 // File Imports
 
 import connectDB from './config/database.js';
-import { notFoundMiddleware } from './middlewares/errorMiddleware.js';
+import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
 
 // Middleware
@@ -31,7 +31,8 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes);
 
 // Error Middleware
-app.use(notFoundMiddleware);
+app.use(notFound);
+app.use(errorHandler);
 // Listening Server
 
 const startServer = async () => {
