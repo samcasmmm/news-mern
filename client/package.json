@@ -9,8 +9,14 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "author": {
+    "name": "Sameer Bagwan",
+    "email": "sameerbagwan132@gmail.com",
+    "url": "https://sameerbagwan.netlify.app"
+  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
+    "@reduxjs/toolkit": "^1.9.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.279.0",
@@ -18,7 +24,9 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
+    "react-redux": "^8.1.2",
     "react-router-dom": "^6.16.0",
+    "redux": "^4.2.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7"
   },
