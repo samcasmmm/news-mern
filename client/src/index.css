@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-satoshi;
+  @apply bg-slate-100 font-satoshi;
 }
 
 input::-webkit-outer-spin-button,

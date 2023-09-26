@@ -2,8 +2,8 @@ import ThemeSwitcher from './ThemeSwitcher';
 
 const Navbar = () => {
   return (
-    <nav className='flex flex-row justify-between bg-slate-900 px-4 py-4'>
-      <p className='text-white'>Logo</p>
+    <nav className='flex flex-row justify-between px-4 py-4 text-red-600 dark:text-emerald-500'>
+      <p className=''>Logo</p>
       <div>
         <ThemeSwitcher />
       </div>
