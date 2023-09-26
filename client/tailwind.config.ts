@@ -23,7 +23,7 @@ module.exports = {
         // Custom
         dark: '#121212',
         'dark-box': '#1E1E1E',
-        'dark-box2': '#404040',
+        'dark-box2': '#2d2d2d',
         'dark-box3': '#202020',
         // Predefined
         border: 'hsl(var(--border))',

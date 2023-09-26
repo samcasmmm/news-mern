@@ -1,11 +1,30 @@
 import ThemeSwitcher from '../ThemeSwitcher';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
 
 const Navbar = () => {
   return (
-    <nav className='flex flex-row justify-between px-4 py-4 text-red-600 dark:text-emerald-500'>
+    <nav className='container flex flex-row items-center justify-between py-4 bg-dark-box'>
       <p className=''>Logo</p>
-      <div>
+      <div className='flex items-center justify-center'>
         <ThemeSwitcher />
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+          <DropdownMenuContent className='bg-dark'>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </nav>
   );
