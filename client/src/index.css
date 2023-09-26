@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
-  @apply bg-slate-100 font-satoshi;
+  @apply font-satoshi;
 }
 
 input::-webkit-outer-spin-button,
@@ -50,7 +55,7 @@ input[type='number'] {
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0, 0%, 7.06%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -85,6 +90,6 @@ input[type='number'] {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-white;
   }
 }

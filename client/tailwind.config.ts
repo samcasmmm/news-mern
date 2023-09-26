@@ -20,6 +20,11 @@ module.exports = {
         satoshi: ['Satoshi', 'sans-serif'],
       },
       colors: {
+        // Custom
+        dark: '#121212',
+        'dark-box': '#1E1E1E',
+        'dark-box2': '#404040',
+        // Predefined
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
