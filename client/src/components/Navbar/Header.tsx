@@ -38,7 +38,7 @@ const Header = () => {
   }
   const { formattedDate } = getCurrentDate();
   return (
-    <div className='bg-dark-box p-4'>
+    <div className='bg-dark-box3 p-4'>
       <div className='container flex flex-row justify-between px-0 xsm:px-4'>
         <div className='flex flex-row items-center justify-center gap-4'>
           <Clock4 color='white' className='fill-blue-600' />

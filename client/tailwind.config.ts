@@ -24,6 +24,7 @@ module.exports = {
         dark: '#121212',
         'dark-box': '#1E1E1E',
         'dark-box2': '#404040',
+        'dark-box3': '#202020',
         // Predefined
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
