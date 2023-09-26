@@ -5,7 +5,7 @@ const DefaultLayout = () => {
   return (
     <div className='w-full h-full bg-slate-100 dark:bg-slate-950'>
       <Navbar />
-      <main className='mx-auto max-w-screen-2xl min-h-[90vh]'>
+      <main className='mx-auto max-w-screen-2xl min-h-[50vh]'>
         <Outlet />
       </main>
       <p>Footer</p>
