@@ -3,7 +3,7 @@ import Loader from './components/common/Loader';
 import { Button } from './components/ui/button';
 import useShowToast from './utils/Toast';
 
-const App = () => {
+const SApp = () => {
   const { showSuccess, showError, showPromise } = useShowToast();
 
   const saveSettings = (isSuccess: boolean) => {
@@ -19,7 +19,7 @@ const App = () => {
   };
 
   const handlePromiseClick = () => {
-    const promise = saveSettings(true);
+    const promise = saveSettings(false);
 
     showPromise(promise, {
       loading: 'Saving...',
@@ -56,4 +56,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default SApp;

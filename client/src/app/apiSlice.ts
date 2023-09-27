@@ -10,3 +10,24 @@ export const apiSlice = createApi({
   tagTypes: [''],
   endpoints: () => ({}),
 });
+
+const users = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    login: builder.mutation({
+      query: (data) => ({
+        url: `/auth`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    userList: builder.query({
+      query: (data) => ({
+        url: `/auth`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+  }),
+});
+
+export const { useLoginMutation, useUserListQuery } = users;

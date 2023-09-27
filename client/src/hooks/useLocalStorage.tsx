@@ -41,3 +41,5 @@ function useLocalStorage<T>(
 }
 
 export default useLocalStorage;
+
+// const [storedValue, setStoredValue] = useLocalStorage('counter', 0);
