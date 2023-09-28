@@ -7,7 +7,7 @@ import routes from './routes';
 const App = () => {
   return (
     <>
-      <Toaster position='top-right' reverseOrder={true} />
+      <Toaster position="top-right" reverseOrder={true} />
       <Routes>
         <Route element={<DefaultLayout />}>
           {routes.map(({ path, component: Component }, index) => (

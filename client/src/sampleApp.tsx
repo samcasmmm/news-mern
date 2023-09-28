@@ -30,11 +30,11 @@ const SApp = () => {
 
   return (
     <>
-      <div className='flex w-full h-screen items-center justify-center gap-5 bg-slate-100 dark:bg-slate-800 transition-all ease-in-out duration-300'>
+      <div className="flex h-screen w-full items-center justify-center gap-5 bg-slate-100 transition-all duration-300 ease-in-out dark:bg-slate-800">
         <Button
           size={'lg'}
           onClick={() => showSuccess('worked')}
-          className='bg-teal-600 hover:bg-teal-700 dark:text-white'
+          className="bg-teal-600 hover:bg-teal-700 dark:text-white"
         >
           Success
         </Button>
@@ -42,7 +42,7 @@ const SApp = () => {
           size={'lg'}
           variant={'destructive'}
           onClick={() => showError('Error')}
-          className='dark:bg-red-500'
+          className="dark:bg-red-500"
         >
           Error
         </Button>
@@ -50,7 +50,7 @@ const SApp = () => {
           Promise
         </Button>
         <ThemeSwitcher />
-        <Loader size='md' Color='teal' />
+        <Loader size="md" Color="teal" />
       </div>
     </>
   );
