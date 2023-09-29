@@ -2,15 +2,6 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useState, useEffect } from 'react';
 
-// const menuItems = [
-//   {
-//     label: 'Item 1',
-//     onclick: () => {
-//       console.log('Item 1 clicked');
-//     },
-//   },
-// ];
-
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
 
