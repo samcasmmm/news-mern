@@ -44,7 +44,7 @@ const Navbar = () => {
           toggleNav ? 'right-0' : 'right-[-120%]'
         } top-0 flex h-[100vh] w-[100vw] flex-col items-end bg-gray-900/20 transition-all duration-500 ease-in-out`}
       >
-        <div className="h-full w-full bg-slate-800 md:w-3/4">
+        <div className="h-full w-full bg-slate-800 md:w-2/4">
           <button onClick={handleToggle}>close</button>
           <div className="order-3  flex w-full flex-1 flex-row items-center justify-center gap-2 p-4 md:order-none">
             <Input
