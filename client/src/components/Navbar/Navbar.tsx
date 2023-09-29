@@ -1,22 +1,21 @@
-import DropDownComponent from '../common/DropDownComponent';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useState, useEffect } from 'react';
 
-const menuItems = [
-  {
-    label: 'Item 1',
-    onclick: () => {
-      console.log('Item 1 clicked');
-    },
-  },
-  {
-    label: 'Item 2',
-    onclick: () => {
-      console.log('Item 2 clicked');
-    },
-  },
-];
+// const menuItems = [
+//   {
+//     label: 'Item 1',
+//     onclick: () => {
+//       console.log('Item 1 clicked');
+//     },
+//   },
+//   {
+//     label: 'Item 2',
+//     onclick: () => {
+//       console.log('Item 2 clicked');
+//     },
+//   },
+// ];
 
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
