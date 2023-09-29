@@ -9,12 +9,6 @@ import { useState, useEffect } from 'react';
 //       console.log('Item 1 clicked');
 //     },
 //   },
-//   {
-//     label: 'Item 2',
-//     onclick: () => {
-//       console.log('Item 2 clicked');
-//     },
-//   },
 // ];
 
 const Navbar = () => {
