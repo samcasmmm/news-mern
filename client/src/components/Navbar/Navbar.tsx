@@ -1,4 +1,4 @@
-import { ChevronLeftCircle } from 'lucide-react';
+import { ChevronLeftCircle, Menu } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useState, useEffect } from 'react';
@@ -8,7 +8,15 @@ const Navbar = () => {
 
   const handleToggle = () => setToggleNav(!toggleNav);
   const closeToggle = () => setToggleNav(false);
-  // console.log(window.scroll > 10);
+  const handleOutsideClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    if (e.currentTarget === e.target) {
+      closeToggle();
+    }
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', closeToggle);
     return () => {
@@ -20,18 +28,25 @@ const Navbar = () => {
     <nav className="relative flex w-full flex-row items-center justify-center bg-white shadow dark:bg-dark-box dark:shadow-slate-950">
       <div className="container flex w-full justify-between p-4">
         <p>Logo</p>
-        <div className="block" onClick={handleToggle}>
-          open
+        <div
+          className="block cursor-pointer text-dark dark:text-white"
+          onClick={handleToggle}
+        >
+          <Menu />
         </div>
       </div>
       <div
         className={`fixed ${
           toggleNav ? 'right-0' : 'right-[-120%]'
-        } top-0 flex h-[100vh] w-[100vw] flex-col items-end bg-gray-900/20 transition-all duration-500 ease-in-out`}
+        } top-0 z-50 flex h-[100vh] w-[100vw] flex-col items-end bg-gray-900/20 transition-all duration-500 ease-in-out`}
+        onClick={handleOutsideClick}
       >
-        <div className="h-full w-full bg-gray-600 p-4 dark:bg-dark md:w-2/4">
+        <div className="h-full w-full bg-gray-800 p-4 text-white dark:bg-dark dark:text-white md:w-2/4">
           <div className="flex flex-row items-center">
-            <button onClick={handleToggle} className="my-6">
+            <button
+              onClick={handleToggle}
+              className="my-6 cursor-pointer text-white dark:text-white"
+            >
               <ChevronLeftCircle />
             </button>
             <p className="flex-1 text-center">logo</p>
