@@ -1,5 +1,4 @@
 import { Clock4, Instagram, Facebook, Twitter } from 'lucide-react';
-import ThemeSwitcher from '../ThemeSwitcher';
 
 const Header = () => {
   function getCurrentDate() {
@@ -52,7 +51,6 @@ const Header = () => {
             // color='white'
             className="scale-75 cursor-pointer text-gray-600 transition duration-300 ease-in-out hover:scale-110  hover:fill-blue-500 dark:text-white"
           />
-          <ThemeSwitcher />
         </div>
       </div>
     </div>

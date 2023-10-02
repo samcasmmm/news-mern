@@ -1,7 +1,8 @@
 import { ChevronLeftCircle, Menu } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+import { Button } from '../../ui/button';
+import { Input } from '../../ui/input';
 import { useState, useEffect } from 'react';
+import ThemeSwitcher from '../../ThemeSwitcher';
 
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -25,9 +26,17 @@ const Navbar = () => {
   });
 
   return (
-    <nav className="relative flex w-full flex-row items-center justify-center bg-white shadow dark:bg-dark-box dark:shadow-slate-950">
-      <div className="container flex w-full justify-between p-4">
-        <p>Logo</p>
+    <nav className="relative flex w-full flex-row items-center justify-between bg-white shadow dark:bg-dark-box dark:shadow-slate-950">
+      <div className="container flex w-[50%] items-center justify-start gap-2 p-2">
+        <img
+          src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png"
+          alt=""
+          width="50"
+          height="40"
+        />
+        <Input className="bg-white ring-offset-blue-600 focus:ring-offset-1 focus-visible:ring-2 focus-visible:ring-offset-1 dark:bg-dark" />
+      </div>
+      <div className="flex w-[50%] items-center justify-end p-2">
         <div
           className="block cursor-pointer text-dark dark:text-white"
           onClick={handleToggle}
@@ -35,6 +44,8 @@ const Navbar = () => {
           <Menu />
         </div>
       </div>
+
+      {/* Sidebar */}
       <div
         className={`fixed ${
           toggleNav ? 'right-0' : 'right-[-120%]'
@@ -50,6 +61,7 @@ const Navbar = () => {
               <ChevronLeftCircle />
             </button>
             <p className="flex-1 text-center">logo</p>
+            <ThemeSwitcher />
           </div>
           <div className="order-3  flex w-full flex-1 flex-row items-center justify-center gap-2 md:order-none">
             <Input
