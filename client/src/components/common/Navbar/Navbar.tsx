@@ -4,6 +4,7 @@ import { Input } from '../../ui/input';
 import { useState, useEffect } from 'react';
 import ThemeSwitcher from '../../ThemeSwitcher';
 import UserMenu from './UserMenu';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -59,7 +60,7 @@ const Navbar = () => {
           className=" m-0 hidden w-max border-blue-600 p-2 text-blue-600 hover:bg-blue-700 hover:text-white sm:block"
           variant={'outline'}
         >
-          Create Post
+          <Link to="/new">Create Post</Link>
         </Button>
         <Button
           className="m-0 hidden border-blue-600 text-black hover:bg-blue-700/20 hover:text-blue-600 dark:text-white sm:block"

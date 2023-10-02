@@ -64,7 +64,7 @@ const Home = () => {
           <SortTabs />
           <div className="h-[30vh] bg-green-600">{renderContent()}</div>
         </div>
-        <div className="hidden h-[30vh] flex-1 bg-red-500 md:flex"></div>
+        <div className="hidden h-[30vh] flex-1 bg-red-500 lg:flex"></div>
       </div>
     </>
   );
