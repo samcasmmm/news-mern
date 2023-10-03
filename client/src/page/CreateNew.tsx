@@ -20,6 +20,11 @@ const initialValue = [
   },
 ];
 
+const CodeElement = (props) => (
+  <pre {...props.attributes} className="bg-[#202020] text-white">
+    <code>{props.children}</code>
+  </pre>
+);
 const DefaultElement = (props) => <p {...props.attributes}>{props.children}</p>;
 
 const Leaf = (props) => (
