@@ -1,8 +1,8 @@
 import { Bell, ChevronLeftCircle, Menu } from 'lucide-react';
-import { Button } from '../../ui/button';
-import { Input } from '../../ui/input';
+import { Button, Input } from '../index';
+
 import { useState, useEffect } from 'react';
-import ThemeSwitcher from '../../ThemeSwitcher';
+import ThemeSwitcher from '../ThemeSwitcher';
 import UserMenu from './UserMenu';
 import { Link } from 'react-router-dom';
 

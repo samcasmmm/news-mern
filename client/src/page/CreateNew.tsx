@@ -1,15 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import {
-  createEditor,
-  BaseEditor,
-  Descendant,
-  Editor,
-  Element,
-  Transforms,
-} from 'slate';
+import React, { useCallback, useState } from 'react';
+import { createEditor, BaseEditor } from 'slate';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
-import { Button } from '../components';
-import { DefaultDeserializer } from 'v8';
 
 declare module 'slate' {
   interface CustomTypes {
@@ -29,11 +20,6 @@ const initialValue = [
   },
 ];
 
-const CodeElement = (props) => (
-  <pre {...props.attributes} className="bg-[#202020] text-white">
-    <code>{props.children}</code>
-  </pre>
-);
 const DefaultElement = (props) => <p {...props.attributes}>{props.children}</p>;
 
 const Leaf = (props) => (
@@ -67,7 +53,6 @@ const CreateNew = () => {
               (op) => 'set_selection' !== op.type,
             );
             if (isAstChange) {
-              // Save the value to Local Storage.
               const content = JSON.stringify(value);
               localStorage.setItem('content', content);
             }

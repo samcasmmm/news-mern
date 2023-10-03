@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Loader from './common/Loader';
+import Navbar from './Navbar/Navbar';
 
 export {
   Button,
@@ -20,4 +21,5 @@ export {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Loader,
+  Navbar,
 };
