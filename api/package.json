@@ -38,5 +38,10 @@
     "prettier": "^3.0.3",
     "tsc-watch": "^6.0.4",
     "typescript": "^5.2.2"
+  },
+  "moduleAliases": {
+    "@/resources/*": ["dist/resources"],
+    "@/utils/*": ["dist/utils"],
+    "@/middlewares/*": ["dist/middlewares"]
   }
 }
