@@ -16,19 +16,25 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
     "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "module-alias": "^2.2.3",
     "mongoose": "^7.5.2",
+    "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
   },
   "devDependencies": {
+    "@types/compression": "^1.7.3",
+    "@types/cors": "^2.8.14",
     "@types/express": "^4.17.19",
+    "@types/morgan": "^1.9.6",
     "@types/node": "^20.8.5",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
@@ -40,8 +46,14 @@
     "typescript": "^5.2.2"
   },
   "moduleAliases": {
-    "@/resources/*": ["dist/resources"],
-    "@/utils/*": ["dist/utils"],
-    "@/middlewares/*": ["dist/middlewares"]
+    "@/resources/*": [
+      "dist/resources"
+    ],
+    "@/utils/*": [
+      "dist/utils"
+    ],
+    "@/middlewares/*": [
+      "dist/middlewares"
+    ]
   }
 }
