@@ -5,8 +5,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 
-import Controller from '@/utils/interfaces/controller.interface.ts';
-import ErrorMiddleware from '@/middlewares/error.middleware.ts';
+import Controller from '@/utils/interfaces/controller.interface';
+import ErrorMiddleware from '@/middlewares/error.middleware';
 
 class App {
    public express:Application;
