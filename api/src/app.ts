@@ -25,7 +25,7 @@ class App {
 
    private initialiseDatabaseConnection(): void {
       const {MONGO_PATH, MONGO_USER, MONGO_PASSWORD}  = process.env
-      mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${}`)
+      mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`)
    }
    private initialiseMiddleware(): void {
       this.express.use(helmet())
@@ -43,4 +43,12 @@ class App {
    private initialiseErrorHandling(): void {
          this.express.use(ErrorMiddleware())
    }
+   public listen():void {
+      this.express.listen(this.port,()=>{
+         console.log(`${process.env.NODE_ENV} Server http://localhost:9000`)
+      })
+   }
 }
+
+
+export default App
