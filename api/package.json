@@ -9,7 +9,7 @@
     "server": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "sameer",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
