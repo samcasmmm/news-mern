@@ -5,6 +5,7 @@ npm-debug.log
 
 # Express.js
 dist/
+/dist
 
 # React
 /build
