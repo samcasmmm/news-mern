@@ -1,18 +1,17 @@
+import { error } from 'console';
 import mongoose from 'mongoose';
 
 const connectDatabase = async () => {
-  const {} = process.env;
-  mongoose.connect(``);
-  //   try {
-  //     const conn = await mongoose.connect(process.env.MONGODB_URL, {
-  //       useUnifiedTopology: true,
-  //       useNewUrlParser: true,
-  //     });
-  //     console.log(`MongoDB Connected`);
-  //   } catch (error) {
-  //     console.error(`Error: ${error.message}`);
-  //     process.exit(1);
-  //   }
+  const { MONGO_PATH, MONGO_USER, MONGO_PASSWORD } = process.env;
+  mongoose
+    .connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`)
+    .then(() => {
+      console.log('MongoDB Connected');
+    })
+    .catch((error) => {
+      console.warn(error);
+      process.exit(1);
+    });
 };
 
 export default connectDatabase;
