@@ -12,11 +12,11 @@ import compression from 'compression';
 
 // File Imports
 
-import { connectDatabase } from '@/utils/index.js';
+import { connectDatabase, Controllers } from '@/utils/index.js';
 
 // Initialize Application
 
-const App = (controllers: [], port: number) => {
+const App = (controllers: Controllers, port: number) => {
   const app: Application = express();
 
   // Initialize database connection
@@ -31,7 +31,7 @@ const App = (controllers: [], port: number) => {
   app.use(compression());
 
   // Initialize controllers
-  controllers.forEach((controller) => {
+  controllers.forEach((controller: any) => {
     app.use('/api', controller.router);
   });
 
