@@ -1,5 +1,7 @@
 import Express from 'express';
 
-export interface Controllers {
+interface Controllers {
   router: Express.Router;
 }
+
+export { Controllers };

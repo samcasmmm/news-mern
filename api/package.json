@@ -45,15 +45,9 @@
     "morgan": "^1.10.0",
     "zod": "^3.22.4"
   },
-  "moduleAliases": {
-    "@/resources/*": [
-      "dist/resources"
-    ],
-    "@/utils/*": [
-      "dist/utils"
-    ],
-    "@/middlewares/*": [
-      "dist/middlewares"
-    ]
+  "_moduleAliases": {
+    "@/resources/*": "dist/resources",
+    "@/utils/*": "dist/utils",
+    "@/middlewares/*": "dist/middlewares"
   }
 }

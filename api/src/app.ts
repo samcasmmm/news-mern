@@ -12,7 +12,8 @@ import compression from 'compression';
 
 // File Imports
 
-import { connectDatabase, Controllers } from '@/utils/index.js';
+import connectDatabase from '@/utils/config/connectDB.js';
+import { Controllers } from '@/utils/interface/controllers.interface.js';
 
 // Initialize Application
 
