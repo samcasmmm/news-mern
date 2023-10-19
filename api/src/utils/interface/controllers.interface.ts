@@ -1,7 +1,8 @@
-import Express from 'express';
+import { Router } from 'express';
 
-interface Controllers {
-  router: Express.Router;
+interface Controller {
+  path: string;
+  router: Router;
 }
 
-export { Controllers };
+export default Controller;

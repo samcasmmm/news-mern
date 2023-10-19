@@ -13,11 +13,12 @@ import compression from 'compression';
 // File Imports
 
 import connectDatabase from '@/utils/config/connectDB.js';
-import { Controllers } from '@/utils/interface/controllers.interface.js';
+import Controller from '@/utils/interface/controllers.interface.js';
+import ErrorMiddleware from '@/middlewares/error.middleware.js';
 
 // Initialize Application
 
-const App = (controllers: Controllers[], port: number) => {
+const App = (controllers: Controller[], port: number) => {
   const app: Application = express();
 
   // Initialize database connection
