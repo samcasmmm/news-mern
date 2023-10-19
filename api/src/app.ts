@@ -16,7 +16,7 @@ import { connectDatabase, Controllers } from '@/utils/index.js';
 
 // Initialize Application
 
-const App = (controllers: Controllers, port: number) => {
+const App = (controllers: Controllers[], port: number) => {
   const app: Application = express();
 
   // Initialize database connection
