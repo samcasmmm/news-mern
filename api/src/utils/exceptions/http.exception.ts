@@ -1,7 +1,14 @@
-const HttpException = (status: number, message: string) => {
-  const error = new Error(message) as Error & { status: number };
-  error.status = status;
-  return error;
-};
+class HttpException extends Error {
+  public status: number;
+  public message: string;
+  public innerError?: Error;
+
+  constructor(status: number, message: string, innerError?: Error) {
+    super(message);
+    this.status = status;
+    this.message = message;
+    this.innerError = innerError;
+  }
+}
 
 export default HttpException;
