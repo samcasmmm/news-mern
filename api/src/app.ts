@@ -10,7 +10,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
 
-// File Imports
+// File Imports.
 
 import connectDatabase from '@/utils/config/connectDB.js';
 import Controller from '@/utils/interface/controllers.interface.js';
