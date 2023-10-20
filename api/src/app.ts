@@ -1,54 +1,43 @@
+// Package imports
+
 import express, { Application } from 'express';
-import mongoose from 'mongoose';
-import compression from 'compression';
+import dotenv from 'dotenv';
+dotenv.config();
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import morgan from 'morgan';
+import mongoose from 'mongoose';
 import helmet from 'helmet';
+import morgan from 'morgan';
+import compression from 'compression';
 
-import Controller from '@/utils/interfaces/controller.interface';
-import ErrorMiddleware from '@/middlewares/error.middleware';
+// File Imports.
 
-class App {
-  public express: Application;
-  public port: number;
+import connectDatabase from '@/utils/config/connectDB.js';
+import Controller from '@/utils/interface/controllers.interface.js';
+import ErrorMiddleware from '@/middlewares/error.middleware.js';
 
-  constructor(controllers: Controller[], port: number) {
-    this.express = express();
-    this.port = port;
+// Initialize Application
 
-    this.initialiseDatabaseConnection();
-    this.initialiseMiddleware();
-    this.initialiseControllers(controllers);
-    this.initialiseErrorHandling();
-  }
+const App = (controllers: Controller[], port: number) => {
+  const app: Application = express();
 
-  private initialiseDatabaseConnection(): void {
-    const { MONGO_PATH, MONGO_USER, MONGO_PASSWORD } = process.env;
-    mongoose.connect(
-      `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`
-    );
-  }
-  private initialiseMiddleware(): void {
-    this.express.use(helmet());
-    this.express.use(cors());
-    this.express.use(morgan('dev'));
-    this.express.use(express.json());
-    this.express.use(express.urlencoded({ extended: false }));
-    this.express.use(compression());
-  }
-  private initialiseControllers(controllers: Controller[]): void {
-    controllers.forEach((controller: Controller) => {
-      this.express.use('/api', controller.router);
-    });
-  }
-  private initialiseErrorHandling(): void {
-    this.express.use(ErrorMiddleware);
-  }
-  public listen(): void {
-    this.express.listen(this.port, () => {
-      console.log(`${process.env.NODE_ENV} Server http://localhost:9000`);
-    });
-  }
-}
+  // Initialize database connection
+  connectDatabase();
+
+  // Initialize middleware
+  app.use(helmet());
+  app.use(cors());
+  app.use(morgan('dev'));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(compression());
+
+  // Initialize controllers
+  controllers.forEach((controller: any) => {
+    app.use('/api', controller.router);
+  });
+
+  return app;
+};
 
 export default App;
