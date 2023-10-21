@@ -4,11 +4,11 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "baseUrl": "src",
-    "paths": {
-      "@/resources/*": ["resources/*"],
-      "@/utils/*": ["utils/*"],
-      "@/middlewares/*": ["middlewares/*"]
-    },
+    // "paths": {
+    //   "@/resources/*": ["resources/*"],
+    //   "@/utils/*": ["utils/*"],
+    //   "@/middlewares/*": ["middlewares/*"]
+    // },
     "outDir": "dist",
     // "sourceMap": true,
     "esModuleInterop": true,

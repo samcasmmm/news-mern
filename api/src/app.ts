@@ -12,9 +12,9 @@ import compression from 'compression';
 
 // File Imports.
 
-import connectDatabase from '@/utils/config/connectDB.js';
-import Controller from '@/utils/interface/controllers.interface.js';
-import ErrorMiddleware from '@/middlewares/error.middleware.js';
+import connectDatabase from './utils/config/connectDB.js';
+import Controller from './utils/interface/controllers.interface.js';
+import ErrorMiddleware from './middlewares/error.middleware.js';
 
 // Initialize Application
 
