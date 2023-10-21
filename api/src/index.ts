@@ -1,6 +1,5 @@
 import express from 'express';
 import createApp from './app.js';
-import { json } from 'stream/consumers';
 
 const app = createApp([], 9000);
 
