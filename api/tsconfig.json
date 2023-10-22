@@ -9,7 +9,7 @@
     //   "@/utils/*": ["utils/*"],
     //   "@/middlewares/*": ["middlewares/*"]
     // },
-    "outDir": "dist",
+    "outDir": "./dist",
     // "sourceMap": true,
     "esModuleInterop": true,
     "strict": true,

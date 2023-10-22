@@ -15,11 +15,15 @@ import compression from 'compression';
 import connectDatabase from './utils/config/connectDB.js';
 import Controller from './utils/interface/controllers.interface.js';
 import ErrorMiddleware from './middlewares/error.middleware.js';
+import validateEnv from './utils/validateEnv.js';
 
 // Initialize Application
 
 const App = (controllers: Controller[], port: number) => {
   const app: Application = express();
+
+  // Validate ENV
+  validateEnv();
 
   // Initialize database connection
   connectDatabase();
