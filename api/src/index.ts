@@ -1,7 +1,9 @@
 import express from 'express';
 import createApp from './app.js';
 
-const app = createApp([], 9000);
+const PORT = Number(process.env.PORT) || 9000;
+
+const app = createApp([], PORT);
 
 app.use('/', (req, res) => {
   res.json({
@@ -13,5 +15,5 @@ app.use('/', (req, res) => {
 });
 
 app.listen(9000, () => {
-  console.log(`Server is running on port 9000`);
+  console.log(`Server http://localhost:${process.env.PORT}`);
 });
