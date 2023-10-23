@@ -30,7 +30,7 @@ npm i
 npm run server
 ``` 
 
-for Frontend
+For Frontend
 ```
 cd ./client
 
