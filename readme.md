@@ -10,7 +10,7 @@ Clone the Repo
 ```
 git clone https://github.com/samcasmmm/news-mern.git
 ```
-then go then api directory
+then go to api directory
 
 add .env file
 ```
