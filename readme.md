@@ -4,7 +4,7 @@ MERN (MongoDB, Express.js, React, Node.js) News Portal, designed following indus
 
 ## Installation
 
-Use the package manager [Node.js](https://nodejs.org/en) to install.
+Use the package manager [Node.js](https://nodejs.org/en) to install....
 
 Clone the Repo 
 ```
