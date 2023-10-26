@@ -1,5 +1,5 @@
 import UserModel from './users.model.js';
-import token from '../../utils/token';
+import token from '../../utils/token.js';
 
 class UserService {
   private user = UserModel;

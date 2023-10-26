@@ -2,13 +2,13 @@ import { Router, Response, Request, NextFunction } from 'express';
 import Controller from '../../utils/interface/controllers.interface.js';
 import HttpException from '../../utils/exceptions/http.exception.js';
 import ValidateMiddleware from '../../middlewares/validation.middleware.js';
-import validate from './users.validation.js';
+import { login, register } from './users.validation.js';
 import userService from './users.service.js';
 
 class UserController implements Controller {
   public path = '/users';
   public router = Router();
-  private UserService = new UserService();
+  private UserService = new this.UserService();
 
   constructor() {
     this.initialiseRoutes();
@@ -17,12 +17,12 @@ class UserController implements Controller {
   private initialiseRoutes(): void {
     this.router.post(
       `${this.path}/register`,
-      validationMiddleware(validate.register),
+      validationMiddleware(register),
       this.register
     );
     this.router.post(
       `${this.path}/login`,
-      validationMiddleware(validate.login),
+      validationMiddleware(login),
       this.login
     );
     this.router.get(`${this.path}`, authenticated, this.getUser);
