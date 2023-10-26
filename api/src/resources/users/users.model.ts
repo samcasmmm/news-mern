@@ -1,12 +1,25 @@
 import mongoose, { Model, Schema } from 'mongoose';
-import Users from './users.interface.js';
+import IUsers from './users.interface.js';
 
-const userSchema = new Schema<Users>({
-  name: String,
-  email: String,
-  password: String,
-});
+const userSchema = new Schema<IUsers>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const UserModel: Model<Users> = mongoose.model<Users>('User', userSchema);
+const UserModel: Model<IUsers> = mongoose.model<IUsers>('User', userSchema);
 
 export default UserModel;
