@@ -3,12 +3,12 @@ import Controller from '../../utils/interface/controllers.interface.js';
 import HttpException from '../../utils/exceptions/http.exception.js';
 import ValidateMiddleware from '../../middlewares/validation.middleware.js';
 import { login, register } from './users.validation.js';
-import userService from './users.service.js';
+import UserService from './users.service.js';
 
 class UserController implements Controller {
   public path = '/users';
   public router = Router();
-  private UserService = new this.UserService();
+  private UserService = new UserService();
 
   constructor() {
     this.initialiseRoutes();
