@@ -9,23 +9,16 @@ import mongoose from 'mongoose';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import fs from 'fs';
-import path from 'path';
 // File Imports.
 import connectDatabase from './config/connectDB.js';
 
 // Initialize App
 const app = express();
 
-// misc
-
-const logStream = fs.createWriteStream(path.join(__dirname, 'request.log'), {
-  flags: 'a',
-});
-
 // Initialize middleware
 app.use(helmet());
 app.use(cors());
-app.use(morgan('combined', { stream: logStream }));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -49,16 +42,6 @@ app.use('/', (req, res) => {
     message: 'success',
     meta: '',
     data: '',
-  });
-});
-app.use('/status', (req, res) => {
-  let data = res.statusCode === 200 ? 'Good' : 'Bad';
-
-  res.json({
-    status: res.statusCode,
-    message: 'success',
-    meta: '',
-    data: data,
   });
 });
 
