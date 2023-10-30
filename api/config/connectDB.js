@@ -1,7 +1,7 @@
-import { error } from 'console';
 import mongoose from 'mongoose';
 
 const connectDatabase = async () => {
+  console.log('Connecting DB');
   const { MONGO_PATH, MONGO_USER, MONGO_PASSWORD } = process.env;
   mongoose
     .connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`)
@@ -9,7 +9,7 @@ const connectDatabase = async () => {
       console.log('MongoDB Connected');
     })
     .catch((error) => {
-      console.warn(error);
+      console.warn('Error in connection', error);
       process.exit(1);
     });
 };
