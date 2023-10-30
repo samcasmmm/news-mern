@@ -1,5 +1,4 @@
 // Package imports
-
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -9,8 +8,11 @@ import mongoose from 'mongoose';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import fs from 'fs';
+
 // File Imports.
 import connectDatabase from './config/connectDB.js';
+import { notFound, errorHandler } from './middleware/error.middleware.js';
+import HttpLogger from './middleware/logger.middleware.js';
 
 // Initialize App
 const app = express();
@@ -22,19 +24,12 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Custom middleware
+app.use(HttpLogger);
+
 // Initialize controllers
 
 // Routes
-
-app.use((req, res, next) => {
-  const logData = `${new Date().toISOString()} - ${req.method} ${req.url}\n`;
-  fs.appendFile('request.log', logData, (err) => {
-    if (err) {
-      console.error('Error logging request:', err);
-    }
-  });
-  next();
-});
 
 app.use('/', (req, res) => {
   res.json({
@@ -44,6 +39,10 @@ app.use('/', (req, res) => {
     data: '',
   });
 });
+
+// Error middleware
+app.use(notFound);
+app.use(errorHandler);
 
 // Listen App
 const startServer = () => {
