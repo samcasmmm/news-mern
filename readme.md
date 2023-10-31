@@ -1,4 +1,4 @@
-# News portal [Name not decided] somthing like dev.to
+# News portal [Name not decided] something like dev.to
 
 MERN (MongoDB, Express.js, React, Node.js) News Portal, designed following industry best practices and utilizing JSON Web Tokens (JWT) for secure user authentication.
 
