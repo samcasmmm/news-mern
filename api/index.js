@@ -13,6 +13,7 @@ import fs from 'fs';
 import connectDatabase from './config/connectDB.js';
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import HttpLogger from './middleware/logger.middleware.js';
+import userRoutes from './routes/users.route.js';
 
 // Initialize App
 const app = express();
@@ -39,6 +40,8 @@ app.use('/', (req, res) => {
     data: '',
   });
 });
+
+app.use('/api/users', userRoutes);
 
 // Error middleware
 app.use(notFound);
