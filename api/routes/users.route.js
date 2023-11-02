@@ -3,24 +3,23 @@ import {
   authUser,
   createUser,
   logoutUser,
-  getUserProfile,
-  updateUserProfile,
-  getAllUsers,
+  userProfile,
+  updateUser,
+  getUser,
+  getAllUser,
 } from '../controllers/users.controller.js';
-// import { authMiddleware } from '../middlewares/authMiddleware.js';
+import { protect } from '../middleware/auth.middleware.js';
 const router = express.Router();
 
 router.post('/', createUser);
 
-router.post('/auth', authUser);
+router.post('/login', authUser);
 
 router.post('/logout', logoutUser);
 
-// router
-//   .route('/profile')
-//   .get(authMiddleware, getUserProfile)
-//   .put(authMiddleware, updateUserProfile);
+router.route('/profile').get(protect, userProfile).put(protect, updateUser);
 
-router.get('/', getAllUsers);
+router.get('/:id', getUser);
+router.get('/', getAllUser);
 
 export default router;

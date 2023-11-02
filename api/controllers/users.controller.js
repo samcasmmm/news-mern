@@ -135,6 +135,7 @@ const getUser = asyncHandler(async (req, res, next) => {
 });
 
 // @route   -  GET /api/users/
+// @desc    -  Get All users based on query
 const getAllUser = asyncHandler(async (req, res, next) => {
   const { userType, page = 1, perPage = 10 } = req.query;
 
