@@ -45,6 +45,7 @@ app.use(HttpLogger);
 app.use('/api/users', userRoutes);
 
 // Error middleware
+
 app.use(notFound);
 app.use(errorHandler);
 
