@@ -1,149 +1,187 @@
 import asyncHandler from 'express-async-handler';
-import generateToken from '../utils/generateToken.js';
-import User from './../models/users.model.js';
+import User from '../models/users.model.js';
+import generateToken from './../utils/generateToken.js';
 
-/**
- * Authenticate a user and generate an access token.
- * @route   POST /api/users/auth
- * @access  Public
- */
-const authenticateUser = asyncHandler(async (req, res, next) => {
+// @route    -  POST /api/users/login
+// @desc     -  Authenticate a user and generate an access token
+const authUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
-  if (user) {
-    const isMatched = await user.matchPassword(password);
-
-    if (isMatched) {
-      user.password = undefined;
-      const { _password: userPassword, ...userWithoutPassword } = user._doc;
-      const token = generateToken(res, user._id);
-
-      return res.status(200).json({
-        message: 'User Logged In',
-        status: 'success',
-        user: userWithoutPassword,
-        token: token,
-      });
-    }
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      status: res.statusCode,
+      message: 'Logged In.',
+      meta: '',
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+        token: generateToken(res, user._id),
+      },
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid Email or Password');
   }
-
-  return res.status(401).json({ message: 'Invalid Credentials' });
 });
 
-/**
- * Register a new user.
- * @route   POST /api/users
- * @access  Public
- */
-const registerUser = asyncHandler(async (req, res, next) => {
-  const { username, email, password } = req.body;
-  const userExists = await User.findOne({ $or: [{ username }, { email }] });
+// @route   -  POST /api/users/
+// @desc    -  Create a new user
+const createUser = asyncHandler(async (req, res, next) => {
+  const { name, email, userType, password } = req.body;
+
+  const userExists = await User.findOne({ email: email });
 
   if (userExists) {
-    return next({
-      message: 'User already exists',
-      status: 'Bad Request',
-    });
+    res.status(403);
+    throw new Error('User Already Exists');
   }
 
-  if (password.length < 5) {
-    return res.status(400).json({
-      message: 'Password must be at least 5 characters long',
-      status: 'Bad Request',
-    });
+  if (password.length < 6) {
+    res.status(403);
+    throw new Error('Password must be at least 6 characters long.');
   }
 
-  const user = await User.create({ username, email, password });
-  const { password: userPassword, ...newUser } = user._doc;
+  const user = await User.create({ name, email, userType, password });
 
   if (user) {
-    const token = generateToken(res, user._id);
-    return res.status(201).json({
-      message: 'A new user created',
-      status: 'success',
-      user: newUser,
-      token: token,
+    res.json({
+      status: res.statusCode,
+      message: 'User Created.',
+      meta: '',
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+        token: generateToken(res, user._id),
+      },
     });
+  } else {
+    res.status(400);
+    throw new Error('Invalid User Data');
   }
 });
 
-/**
- * Logout a user by clearing the JWT cookie.
- * @route   POST /api/users/logout
- * @access  Public
- */
-const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', {
-    httpOnly: true,
-    expires: new Date(0),
+// @route   -  POST /api/users/logout
+const logoutUser = asyncHandler(async (req, res, next) => {
+  res.json({
+    message: 'Logout User',
   });
-  res.status(200).json({ message: 'User Logout' });
 });
 
-/**
- * Get the user's profile.
- * @route   GET /api/users/profile
- * @access  Private
- */
-const getUserProfile = asyncHandler(async (req, res) => {
-  const user = {
-    _id: req.user._id,
-    username: req.user.username,
-    email: req.user.email,
-  };
-
-  res.status(200).json({ message: 'User Profile', status: 'success', user });
-});
-
-/**
- * Update the user's profile.
- * @route   PUT /api/users/profile
- * @access  Private
- */
-const updateUserProfile = asyncHandler(async (req, res, next) => {
+// @route   -  GET /api/users/profile
+const userProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    user.username = req.body.username || user.username;
-    user.email = req.body.email || user.email;
-
-    if (req.body.password) {
-      user.password = req.body.password;
-    }
-
-    const updatedUser = await user.save();
-    updatedUser.password = undefined;
-
-    return res.status(200).json({
-      message: 'User profile updated',
-      status: 'success',
-      user: updatedUser,
+    res.json({
+      status: res.statusCode,
+      message: 'Fetch Profile Successfully',
+      meta: '',
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+        createdAt: user.createdAt,
+      },
     });
   } else {
-    return res.status(404).json({
-      message: 'User not found',
-      status: 404,
-    });
+    res.status(404);
+    throw new Error('User not found');
   }
 });
 
-/**
- * Get a list of all users (excluding the password field).
- * @route   GET /api/users
- * @access  Private
- */
-const getAllUsers = asyncHandler(async (req, res, next) => {
-  try {
-    const users = await User.find().select('-password');
+// @route   -  PUT /api/users/profile
+const updateUser = asyncHandler(async (req, res, next) => {
+  const { name, email, userType, password } = req.body;
+  const user = await User.findById(req.user._id);
+  if (user) {
+    user.name = name || user.name;
+    user.email = email || user.email;
+    if (req.body.userType) {
+      user.userType = userType;
+    }
+    if (req.body.password) {
+      user.password = password;
+    }
+    const updatedUser = await user.save();
+    res.json({
+      status: res.statusCode,
+      message: 'Profile Update Successfully',
+      meta: '',
+      data: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        userType: updatedUser.userType,
+        token: generateToken(res, updatedUser._id),
+      },
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
 
-    return res.status(200).json({
+// @route   -  GET /api/users/:id
+const getUser = asyncHandler(async (req, res, next) => {
+  res.json({
+    message: 'Get A User',
+  });
+});
+
+// @route   -  GET /api/users/
+// @desc    -  Get All users based on query
+const getAllUser = asyncHandler(async (req, res, next) => {
+  const { userType, page = 1, perPage = 10 } = req.query;
+
+  try {
+    let query = {};
+
+    if (userType === 'all') {
+    } else if (
+      userType === 'user' ||
+      userType === 'admin' ||
+      userType === 'employee'
+    ) {
+      query = { userType: userType };
+    } else {
+      return res.status(400).json({
+        message: 'Invalid userType',
+        status: 'error',
+      });
+    }
+
+    const totalUsers = await User.countDocuments(query);
+    const totalPages = Math.ceil(totalUsers / perPage);
+
+    if (page > totalPages) {
+      return res.status(400).json({
+        message: 'Invalid page number',
+        status: 'error',
+      });
+    }
+
+    const users = await User.find(query)
+      .select('-password')
+      .skip((page - 1) * perPage)
+      .limit(Number(perPage));
+
+    res.status(200).json({
       message: 'Users fetched successfully',
       status: 'success',
+      total: totalUsers,
+      perPage: perPage,
+      page: Number(page),
+      totalPages: totalPages,
       users: users,
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: 'An error occurred while fetching users',
       status: 'error',
     });
@@ -151,10 +189,11 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
 });
 
 export {
-  authenticateUser,
-  registerUser,
+  authUser,
+  createUser,
   logoutUser,
-  getUserProfile,
-  updateUserProfile,
-  getAllUsers,
+  userProfile,
+  updateUser,
+  getUser,
+  getAllUser,
 };

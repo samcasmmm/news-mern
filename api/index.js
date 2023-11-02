@@ -32,18 +32,20 @@ app.use(HttpLogger);
 
 // Routes
 
-app.use('/', (req, res) => {
-  res.json({
-    status: res.statusCode,
-    message: 'success',
-    meta: '',
-    data: '',
-  });
-});
+// app.use('/', (req, res) => {
+//   res.send({
+//     status: res.statusCode,
+//     message: 'success',
+//     url: req.url,
+//     meta: '',
+//     data: '',
+//   });
+// });
 
 app.use('/api/users', userRoutes);
 
 // Error middleware
+
 app.use(notFound);
 app.use(errorHandler);
 
