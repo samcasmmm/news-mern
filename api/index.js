@@ -1,4 +1,4 @@
-// Package imports
+//  Package imports
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -14,6 +14,7 @@ import connectDatabase from './config/connectDB.js';
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import HttpLogger from './middleware/logger.middleware.js';
 import userRoutes from './routes/users.route.js';
+import postsRoutes from './routes/posts.route.js';
 
 // Initialize App
 const app = express();
@@ -32,17 +33,18 @@ app.use(HttpLogger);
 
 // Routes
 
-// app.use('/', (req, res) => {
-//   res.send({
-//     status: res.statusCode,
-//     message: 'success',
-//     url: req.url,
-//     meta: '',
-//     data: '',
-//   });
-// });
+app.get('/', (req, res) => {
+  res.send({
+    status: res.statusCode,
+    message: 'success',
+    url: req.url,
+    meta: '',
+    data: '',
+  });
+});
 
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postsRoutes);
 
 // Error middleware
 
