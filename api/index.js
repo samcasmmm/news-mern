@@ -14,6 +14,7 @@ import connectDatabase from './config/connectDB.js';
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import HttpLogger from './middleware/logger.middleware.js';
 import userRoutes from './routes/users.route.js';
+import postsRoutes from './routes/posts.route.js';
 
 // Initialize App
 const app = express();
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postsRoutes);
 
 // Error middleware
 
