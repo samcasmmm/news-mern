@@ -9,7 +9,7 @@ const createPost = async (req, res) => {
       title,
       headerImage,
       content,
-      author,
+      author: req.user.id,
     });
 
     const savedPost = await newPost.save();
