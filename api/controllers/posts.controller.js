@@ -110,3 +110,12 @@ const searchPosts = asyncHandler(async (req, res) => {
     res.status(500).json({ error: 'Error searching for posts' });
   }
 });
+
+export {
+  createPost,
+  updatePost,
+  deletePost,
+  getAllPosts,
+  getPostById,
+  searchPosts,
+};
