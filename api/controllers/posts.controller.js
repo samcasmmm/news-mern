@@ -63,7 +63,7 @@ export const deletePost = asyncHandler(async (req, res) => {
   }
 });
 
-export const getAllPosts = async (req, res) => {
+export const getAllPosts = asyncHandler(async (req, res) => {
   try {
     const posts = await Post.find();
     res.json(posts);
@@ -71,9 +71,9 @@ export const getAllPosts = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error fetching posts' });
   }
-};
+});
 
-export const getPostById = async (req, res) => {
+export const getPostById = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.id;
 
@@ -88,7 +88,7 @@ export const getPostById = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error fetching the post' });
   }
-};
+});
 
 export const searchPosts = async (req, res) => {
   try {
