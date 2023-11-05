@@ -1,6 +1,7 @@
 // postController.js
 
 import Post from '../models/posts.model.js';
+import asyncHandler from 'express-async-handler';
 
 export const createPost = async (req, res) => {
   try {
