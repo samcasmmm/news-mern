@@ -3,7 +3,7 @@
 import Post from '../models/posts.model.js';
 import asyncHandler from 'express-async-handler';
 
-export const createPost = asyncHandler(async (req, res) => {
+const createPost = asyncHandler(async (req, res) => {
   try {
     const { title, headerImage, content, author } = req.body;
 
@@ -24,7 +24,7 @@ export const createPost = asyncHandler(async (req, res) => {
   }
 });
 
-export const updatePost = asyncHandler(async (req, res) => {
+const updatePost = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.id;
     const { title, headerImage, content } = req.body;
@@ -46,7 +46,7 @@ export const updatePost = asyncHandler(async (req, res) => {
   }
 });
 
-export const deletePost = asyncHandler(async (req, res) => {
+const deletePost = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.id;
 
@@ -63,7 +63,7 @@ export const deletePost = asyncHandler(async (req, res) => {
   }
 });
 
-export const getAllPosts = asyncHandler(async (req, res) => {
+const getAllPosts = asyncHandler(async (req, res) => {
   try {
     const posts = await Post.find();
     res.json(posts);
@@ -73,7 +73,7 @@ export const getAllPosts = asyncHandler(async (req, res) => {
   }
 });
 
-export const getPostById = asyncHandler(async (req, res) => {
+const getPostById = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.id;
 
@@ -90,7 +90,7 @@ export const getPostById = asyncHandler(async (req, res) => {
   }
 });
 
-export const searchPosts = async (req, res) => {
+const searchPosts = asyncHandler(async (req, res) => {
   try {
     const { name, author } = req.query;
     const query = {};
@@ -109,4 +109,4 @@ export const searchPosts = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error searching for posts' });
   }
-};
+});
