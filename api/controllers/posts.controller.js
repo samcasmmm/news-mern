@@ -3,7 +3,7 @@
 import Post from '../models/posts.model.js';
 import asyncHandler from 'express-async-handler';
 
-export const createPost = async (req, res) => {
+export const createPost = asyncHandler(async (req, res) => {
   try {
     const { title, headerImage, content, author } = req.body;
 
@@ -22,9 +22,9 @@ export const createPost = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error creating the post' });
   }
-};
+});
 
-export const updatePost = async (req, res) => {
+export const updatePost = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.id;
     const { title, headerImage, content } = req.body;
@@ -44,7 +44,7 @@ export const updatePost = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error updating the post' });
   }
-};
+});
 
 export const deletePost = async (req, res) => {
   try {
