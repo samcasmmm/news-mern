@@ -46,7 +46,7 @@ export const updatePost = asyncHandler(async (req, res) => {
   }
 });
 
-export const deletePost = async (req, res) => {
+export const deletePost = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.id;
 
@@ -61,7 +61,7 @@ export const deletePost = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error deleting the post' });
   }
-};
+});
 
 export const getAllPosts = async (req, res) => {
   try {
