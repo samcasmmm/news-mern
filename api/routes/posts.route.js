@@ -13,8 +13,8 @@ const router = express.Router();
 // POST route for creating a new post, using the controller function
 
 router.post('/', createPost);
-router.put('/posts/:id', updatePost);
-router.delete('/posts/:id', deletePost);
+router.put('/:id', updatePost);
+router.delete('/:id', deletePost);
 router.get('/posts/all', getAllPosts);
 router.get('/posts/:id', getPostById);
 router.get('/posts/search', searchPosts);
