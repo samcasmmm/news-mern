@@ -1,50 +1,66 @@
-// Package imports
+//  Package imports
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import fs from 'fs';
 
-// File Imports
+// File Imports.
+import connectDatabase from './config/connectDB.js';
+import { notFound, errorHandler } from './middleware/error.middleware.js';
+import HttpLogger from './middleware/logger.middleware.js';
+import userRoutes from './routes/users.route.js';
+import postsRoutes from './routes/posts.route.js';
 
-import connectDatabase from './config/MongoDb.js';
-import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
-import userRoutes from './routes/userRoutes.js';
-
-// Middleware
+// Initialize App
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+
+// Initialize middleware
+app.use(helmet());
 app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Custom middleware
+app.use(HttpLogger);
+
+// Initialize controllers
 
 // Routes
 
 app.get('/', (req, res) => {
-  res.json({
-    status: 'Server is running',
-    statusCode: res.statusCode,
+  res.send({
+    status: res.statusCode,
+    message: 'success',
+    url: req.url,
+    meta: '',
+    data: '',
   });
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postsRoutes);
 
-// Error Middleware
+// Error middleware
+
 app.use(notFound);
 app.use(errorHandler);
-// Listening Server
 
-const startServer = async () => {
-  try {
-    connectDatabase();
-  } catch (error) {
-    console.log(error);
-  }
+// Listen App
+const startServer = () => {
   app.listen(process.env.PORT, () => {
-    console.log(
-      `${process.env.NODE_ENV} server on http://localhost:${process.env.PORT}`
-    );
+    connectDatabase()
+      .then(() => {
+        console.log(`Server listening on http://localhost:${process.env.PORT}`);
+      })
+      .catch((error) => {
+        console.error(`Error connecting to the database: ${error.message}`);
+      });
   });
 };
 

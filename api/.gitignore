@@ -5,6 +5,7 @@ npm-debug.log
 
 # Express.js
 dist/
+/dist
 
 # React
 /build
@@ -39,6 +40,7 @@ npm-debug.log*
 /*.zip
 
 # Environment configuration
+.env
 .env.local
 .env.development.local
 .env.test.local

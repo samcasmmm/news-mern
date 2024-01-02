@@ -1,16 +1,16 @@
-# News portal [Name not decided]
+# News portal [Name not decided] something like dev.to
 
 MERN (MongoDB, Express.js, React, Node.js) News Portal, designed following industry best practices and utilizing JSON Web Tokens (JWT) for secure user authentication.
 
 ## Installation
 
-Use the package manager [Node.js](https://nodejs.org/en) to install.
+Use the package manager [Node.js](https://nodejs.org/en) to install....
 
 Clone the Repo 
 ```
 git clone https://github.com/samcasmmm/news-mern.git
 ```
-then go then api directory
+then go to api directory
 
 add .env file
 ```
@@ -30,7 +30,7 @@ npm i
 npm run server
 ``` 
 
-for Frontend
+For Frontend
 ```
 cd ./client
 
@@ -43,6 +43,8 @@ npm run
 
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
+
+byee
 
 
 ## License

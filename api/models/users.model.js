@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema(
     userType: {
       type: String,
       default: 'user',
-      enum:['user','employee','admin']
     },
     password: {
       type: String,
@@ -37,5 +36,5 @@ userSchema.methods.matchPassword = async function (userPasswd) {
   return await bcrypt.compare(userPasswd, this.password);
 };
 
-const User = mongoose.model('Users', userSchema);
+const User = mongoose.model('User', userSchema);
 export default User;

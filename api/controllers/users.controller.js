@@ -1,11 +1,13 @@
 import asyncHandler from 'express-async-handler';
-import User from '../models/userSchema.js';
+import User from '../models/users.model.js';
 import generateToken from './../utils/generateToken.js';
 
-// @ route    -  POST /api/users/login
+// @route    -  POST /api/users/login
+// @desc     -  Authenticate a user and generate an access token
 const authUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+
   if (user && (await user.matchPassword(password))) {
     res.json({
       status: res.statusCode,
@@ -25,7 +27,8 @@ const authUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @ route   -  POST /api/users/
+// @route   -  POST /api/users/
+// @desc    -  Create a new user
 const createUser = asyncHandler(async (req, res, next) => {
   const { name, email, userType, password } = req.body;
 
@@ -62,14 +65,14 @@ const createUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @ route   -  POST /api/users/logout
+// @route   -  POST /api/users/logout
 const logoutUser = asyncHandler(async (req, res, next) => {
   res.json({
     message: 'Logout User',
   });
 });
 
-// @ route   -  GET /api/users/profile
+// @route   -  GET /api/users/profile
 const userProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
@@ -92,7 +95,7 @@ const userProfile = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @ route   -  PUT /api/users/profile
+// @route   -  PUT /api/users/profile
 const updateUser = asyncHandler(async (req, res, next) => {
   const { name, email, userType, password } = req.body;
   const user = await User.findById(req.user._id);
@@ -124,14 +127,15 @@ const updateUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @ route   -  GET /api/users/:id
+// @route   -  GET /api/users/:id
 const getUser = asyncHandler(async (req, res, next) => {
   res.json({
-    message: 'Get A Users',
+    message: 'Get A User',
   });
 });
 
-// @ route   -  GET /api/users/
+// @route   -  GET /api/users/
+// @desc    -  Get All users based on query
 const getAllUser = asyncHandler(async (req, res, next) => {
   const { userType, page = 1, perPage = 10 } = req.query;
 
