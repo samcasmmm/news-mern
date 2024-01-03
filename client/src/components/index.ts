@@ -23,4 +23,5 @@ export {
   DropdownMenuTrigger,
   Loader,
   Navbar,
+  Sidebar,
 };
