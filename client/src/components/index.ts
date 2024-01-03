@@ -10,6 +10,7 @@ import {
 } from './ui/dropdown-menu';
 import Loader from './common/Loader';
 import Navbar from './Navbar/Navbar';
+import Sidebar from './sidebar/Sidebar';
 
 export {
   Button,
