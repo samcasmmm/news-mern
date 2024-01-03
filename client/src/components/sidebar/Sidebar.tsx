@@ -28,7 +28,7 @@ const menuItems = [
 const ListItem: React.FC<ListItemProps> = ({ index, title, className }) => (
   <li
     key={index}
-    className={`my-2 w-full cursor-pointer rounded-md bg-gray-200/60 p-2 text-center text-black transition-all duration-200 hover:bg-gray-300 dark:bg-gray-500/60 dark:text-white ${cn(
+    className={`my-2 w-full cursor-pointer rounded-md bg-gray-200/60 p-2 text-center text-black transition-all duration-200 hover:bg-gray-300 dark:bg-gray-500/60 dark:text-white dark:hover:bg-gray-700 ${cn(
       className,
     )}`}
   >
