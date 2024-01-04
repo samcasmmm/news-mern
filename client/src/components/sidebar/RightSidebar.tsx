@@ -15,7 +15,9 @@ interface IRightBarBox {
 const RightBarBox = ({ title, content }: IRightBarBox) => {
   return (
     <div className="my-2 rounded-sm bg-white py-2">
-      <p className="py-4 pl-4 text-xl font-semibold">{title}</p>
+      <p className="py-4 pl-4 text-xl font-semibold text-gray-800/80">
+        {title}
+      </p>
       <Separator />
       <div className="">
         <div className="content-section">
@@ -24,16 +26,16 @@ const RightBarBox = ({ title, content }: IRightBarBox) => {
               <div key={index} className="p-2 ">
                 <a
                   href={item.link}
-                  className="transition-all duration-200 hover:text-blue-600"
+                  className=" transition-all duration-200 hover:text-blue-600"
                   target="_blank"
                 >
                   {item.title}
                 </a>
-                <p className="text-sm text-gray-500">
+                <p className="mt-2 text-sm text-gray-500">
                   Comments: {item.comments}
                 </p>
               </div>
-              <Separator />
+              {index !== content.length - 1 && <Separator />}
             </>
           ))}
         </div>
