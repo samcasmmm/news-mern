@@ -1,5 +1,6 @@
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { Separator } from './ui/separator';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +12,7 @@ import {
 import Loader from './common/Loader';
 import Navbar from './Navbar/Navbar';
 import Sidebar from './sidebar/Sidebar';
+import RightSidebar from './sidebar/RightSidebar';
 
 export {
   Button,
@@ -21,7 +23,9 @@ export {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Separator,
   Loader,
   Navbar,
   Sidebar,
+  RightSidebar,
 };
