@@ -14,8 +14,8 @@ interface IRightBarBox {
 
 const RightBarBox = ({ title, content }: IRightBarBox) => {
   return (
-    <div className="my-2 rounded-sm bg-white py-2">
-      <p className="py-4 pl-4 text-xl font-semibold text-gray-800/80">
+    <div className="my-2 rounded-sm bg-white py-2 dark:bg-gray-600/70">
+      <p className="py-4 pl-4 text-xl font-semibold text-gray-800/80 dark:text-white">
         {title}
       </p>
       <Separator />
@@ -31,7 +31,7 @@ const RightBarBox = ({ title, content }: IRightBarBox) => {
                 >
                   {item.title}
                 </a>
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 cursor-pointer text-sm text-gray-500 transition-all duration-200 dark:hover:text-white">
                   Comments: {item.comments}
                 </p>
               </div>
