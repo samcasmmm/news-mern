@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Sidebar } from '../components';
+import { Button, RightSidebar, Sidebar } from '../components';
 
 type TSelectSort = 'relevant' | 'latest' | 'top';
 
@@ -59,14 +59,16 @@ const Home = () => {
   return (
     <>
       <div className="container flex flex-row gap-2 p-2">
-        <div className="hidden h-[30vh] flex-1 md:flex">
+        <div className="hidden h-[30vh] flex-1 p-2 md:flex">
           <Sidebar />
         </div>
         <div className="flex-[3] space-y-2">
           <SortTabs />
           <div className="h-[30vh] bg-green-600">{renderContent()}</div>
         </div>
-        <div className="hidden h-[30vh] flex-1 bg-red-500 lg:flex"></div>
+        <div className="hidden h-[30vh] flex-[1.6] p-2 lg:flex">
+          <RightSidebar />
+        </div>
       </div>
     </>
   );
