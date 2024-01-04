@@ -15,7 +15,7 @@ interface IRightBarBox {
 const RightBarBox = ({ title, content }: IRightBarBox) => {
   return (
     <div className="my-2 rounded-sm bg-white py-2">
-      <p className="py-2 pl-4 font-semibold">{title}</p>
+      <p className="py-4 pl-4 text-xl font-semibold">{title}</p>
       <Separator />
       <div className="">
         <div className="content-section">
