@@ -1,16 +1,21 @@
-import React from 'react';
 import { Separator } from '../index';
 
 // type Props = {};
+interface IContent {
+  title: string;
+  link: string;
+  comments: number;
+}
 interface IRightBarBox {
   title: string;
+  content: IContent[];
 }
 
-const RightBarBox = ({}: IRightBarBox) => {
+const RightBarBox = ({ title }: IRightBarBox) => {
   return (
-    <div className="p-2">
+    <div className="bg-white p-2">
       <div className="">
-        <p>Active discussions</p>
+        <p>{title}</p>
         <Separator />
         {}
       </div>
@@ -20,8 +25,8 @@ const RightBarBox = ({}: IRightBarBox) => {
 
 const RightSidebar = () => {
   return (
-    <div className="w-full bg-white">
-      <RightBarBox />
+    <div className="w-full ">
+      <RightBarBox title="Active discussions" />
     </div>
   );
 };
