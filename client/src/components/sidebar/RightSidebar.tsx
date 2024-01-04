@@ -22,8 +22,16 @@ const RightBarBox = ({ title, content }: IRightBarBox) => {
           {content.map((item, index) => (
             <>
               <div key={index} className="p-2 ">
-                <a href={item.link}>{item.title}</a>
-                <p>Comments: {item.comments}</p>
+                <a
+                  href={item.link}
+                  className="transition-all duration-200 hover:text-blue-600"
+                  target="_blank"
+                >
+                  {item.title}
+                </a>
+                <p className="text-sm text-gray-500">
+                  Comments: {item.comments}
+                </p>
               </div>
               <Separator />
             </>

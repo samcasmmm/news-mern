@@ -59,14 +59,14 @@ const Home = () => {
   return (
     <>
       <div className="container flex flex-row gap-2 p-2">
-        <div className="hidden h-[30vh] flex-1 md:flex">
+        <div className="hidden h-[30vh] flex-1 p-2 md:flex">
           <Sidebar />
         </div>
         <div className="flex-[3] space-y-2">
           <SortTabs />
           <div className="h-[30vh] bg-green-600">{renderContent()}</div>
         </div>
-        <div className="hidden h-[30vh] flex-1 lg:flex">
+        <div className="flex-21 hidden h-[30vh] p-2 lg:flex">
           <RightSidebar />
         </div>
       </div>
