@@ -13,6 +13,7 @@ import Loader from './common/Loader';
 import Navbar from './Navbar/Navbar';
 import Sidebar from './sidebar/Sidebar';
 import RightSidebar from './sidebar/RightSidebar';
+import NewsCard from './newsCard/NewsCard';
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   Navbar,
   Sidebar,
   RightSidebar,
+  NewsCard,
 };
