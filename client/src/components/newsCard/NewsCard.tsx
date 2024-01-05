@@ -4,7 +4,7 @@
 
 const NewsCard = () => {
   return (
-    <div className=" my-2 rounded-md bg-white dark:bg-dark-box">
+    <div className=" my-4 overflow-hidden rounded-md bg-white dark:bg-dark-box">
       <div className="">
         <div className="">
           <img
