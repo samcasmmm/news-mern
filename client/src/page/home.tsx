@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, RightSidebar, Sidebar } from '../components';
+import { Button, NewsCard, RightSidebar, Sidebar } from '../components';
 
 type TSelectSort = 'relevant' | 'latest' | 'top';
 
@@ -44,17 +44,17 @@ const Home = () => {
     );
   };
 
-  const renderContent = () => {
-    if (selectSort === 'relevant') {
-      return <p>{selectSort}</p>;
-    }
-    if (selectSort === 'latest') {
-      return <p>{selectSort}</p>;
-    }
-    if (selectSort === 'top') {
-      return <p>{selectSort}</p>;
-    }
-  };
+  // const renderContent = () => {
+  //   if (selectSort === 'relevant') {
+  //     return <p>{selectSort}</p>;
+  //   }
+  //   if (selectSort === 'latest') {
+  //     return <p>{selectSort}</p>;
+  //   }
+  //   if (selectSort === 'top') {
+  //     return <p>{selectSort}</p>;
+  //   }
+  // };
 
   return (
     <>
@@ -64,7 +64,13 @@ const Home = () => {
         </div>
         <div className="flex-[3] space-y-2">
           <SortTabs />
-          <div className="h-[30vh] bg-green-600">{renderContent()}</div>
+          <div className="h-[30vh]">
+            {/* {renderContent()} */}
+
+            {Array.from({ length: 3 }).map((item, index) => (
+              <NewsCard key={index} />
+            ))}
+          </div>
         </div>
         <div className="hidden h-[30vh] flex-[1.6] p-2 lg:flex">
           <RightSidebar />
