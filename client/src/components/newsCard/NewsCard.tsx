@@ -31,11 +31,19 @@ const NewsCard = () => {
               How to build your own SAAS business
             </p>
 
-            <div className="flex flex-row">
-              <p>#django</p>
-              <p>#startup</p>
-              <p>#career</p>
-              <p>#productivity</p>
+            <div className="flex flex-row gap-2">
+              <p className="cursor-pointer rounded-lg bg-blue-100 p-2 transition-all duration-200 hover:bg-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700">
+                #django
+              </p>
+              <p className="cursor-pointer rounded-lg bg-blue-100 p-2 transition-all duration-200 hover:bg-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700">
+                #startup
+              </p>
+              <p className="cursor-pointer rounded-lg bg-blue-100 p-2 transition-all duration-200 hover:bg-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700">
+                #career
+              </p>
+              <p className="cursor-pointer rounded-lg bg-blue-100 p-2 transition-all duration-200 hover:bg-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700">
+                #productivity
+              </p>
             </div>
           </div>
         </div>
