@@ -68,4 +68,4 @@ const categoryController = {
    }
 };
 
-export default categoryController;
+export const { createCategory, getAllCategories, getCategory, deleteCategory, updateCategory } = categoryController;
