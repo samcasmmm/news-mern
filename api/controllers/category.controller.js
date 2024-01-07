@@ -43,8 +43,9 @@ const categoryController = {
       try {
          const { name, description } = req.body;
          const updatedCategory = await Category.findOneAndUpdate(
-            { categoryId: req.params.categoryId },
-            { name, description },
+            { categoryId: req.params.id },
+            { name, name },
+            { description, description },
             { new: true }
          );
          if (!updatedCategory) {
