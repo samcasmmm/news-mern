@@ -15,6 +15,7 @@ import { notFound, errorHandler } from './middleware/error.middleware.js';
 import HttpLogger from './middleware/logger.middleware.js';
 import userRoutes from './routes/users.route.js';
 import postsRoutes from './routes/posts.route.js';
+import categoryRoutes from './routes/category.route.js';
 
 // Initialize App
 const app = express();
@@ -45,7 +46,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postsRoutes);
-
+app.use('/api/categories', categoryRoutes);
 // Error middleware
 
 app.use(notFound);
