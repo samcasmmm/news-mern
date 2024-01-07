@@ -26,7 +26,9 @@ const categoryController = {
    // Get a single category by categoryId
    async getCategory(req, res) {
       try {
-         const category = await Category.findOne({ categoryId: req.params.categoryId });
+         const category = await Category.findOne({
+            categoryId: req.params.categoryId,
+         });
          if (!category) {
             return res.status(404).json({ message: 'Category not found' });
          }
@@ -57,7 +59,9 @@ const categoryController = {
    // Delete a category by categoryId
    async deleteCategory(req, res) {
       try {
-         const deletedCategory = await Category.findOneAndDelete({ categoryId: req.params.categoryId });
+         const deletedCategory = await Category.findOneAndDelete({
+            categoryId: req.params.categoryId,
+         });
          if (!deletedCategory) {
             return res.status(404).json({ message: 'Category not found' });
          }
@@ -65,8 +69,13 @@ const categoryController = {
       } catch (error) {
          res.status(500).json({ message: error.message });
       }
-   }
+   },
 };
 
-
-export const { createCategory, getAllCategories, getCategory, deleteCategory, updateCategory } = categoryController;
+export const {
+   createCategory,
+   getAllCategories,
+   getCategory,
+   deleteCategory,
+   updateCategory,
+} = categoryController;
