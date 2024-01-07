@@ -68,4 +68,5 @@ const categoryController = {
    }
 };
 
+
 export const { createCategory, getAllCategories, getCategory, deleteCategory, updateCategory } = categoryController;
