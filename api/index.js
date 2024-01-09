@@ -57,7 +57,7 @@ const startServer = () => {
   app.listen(process.env.PORT, () => {
     connectDatabase()
       .then(() => {
-        console.log(`Server listening on http://localhost:${process.env.PORT}`);
+        console.log(`Server at http://localhost:${process.env.PORT}`);
       })
       .catch((error) => {
         console.error(`Error connecting to the database: ${error.message}`);
