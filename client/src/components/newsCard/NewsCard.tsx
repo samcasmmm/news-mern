@@ -4,7 +4,7 @@
 
 const NewsCard = () => {
   return (
-    <div className=" my-4 overflow-hidden rounded-md bg-white dark:bg-dark-box">
+    <div className=" my-4 cursor-pointer overflow-hidden rounded-md bg-white dark:bg-dark-box">
       <div className="">
         <div className="">
           <img
@@ -29,7 +29,7 @@ const NewsCard = () => {
             </div>
           </div>
           <div className=" m-4">
-            <p className="cursor-pointer py-2 text-3xl font-bold text-gray-300 duration-150 hover:text-white">
+            <p className="cursor-pointer py-2 text-3xl font-bold duration-150 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">
               How to build your own SAAS business
             </p>
 
