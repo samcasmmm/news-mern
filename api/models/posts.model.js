@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
   content: [
     {
       type: {
-        // Type can be 'image' or 'paragraph'
+
         type: String,
         enum: ['image', 'paragraph'],
         required: true,
