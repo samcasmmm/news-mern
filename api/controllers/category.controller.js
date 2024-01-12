@@ -27,7 +27,7 @@ const categoryController = {
    async getCategory(req, res) {
       try {
          const category = await Category.findOne({
-            categoryId: req.params.categoryId,
+            categoryId: req.params.id,
          });
          if (!category) {
             return res.status(404).json({ message: 'Category not found' });
@@ -44,8 +44,7 @@ const categoryController = {
          const { name, description } = req.body;
          const updatedCategory = await Category.findOneAndUpdate(
             { categoryId: req.params.id },
-            { name, name },
-            { description, description },
+            { $set: { name, description } },
             { new: true }
          );
          if (!updatedCategory) {
