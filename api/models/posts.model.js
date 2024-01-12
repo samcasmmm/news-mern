@@ -7,13 +7,12 @@ const postSchema = new mongoose.Schema({
     trim: true,
   },
   headerImage: {
-    type: String, // You can store the image URL as a string
+    type: String,
     required: true,
   },
   content: [
     {
       type: {
-        // Type can be 'image' or 'paragraph'
         type: String,
         enum: ['image', 'paragraph'],
         required: true,
