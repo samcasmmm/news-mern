@@ -1,14 +1,6 @@
-/**
- * Express error middleware.
- *
- * @param error The error object.
- * @param req The request object.
- * @param res The response object.
- * @param next The next middleware function.
- */
 
 const notFound = (req, res, next) => {
-  const error = new Error(`Not found - ${req.originalUrl}`);
+  const error = new Error(`Not found - ${req.method} ${req.originalUrl}`);
   res.status(404);
   next(error);
 };
@@ -18,6 +10,7 @@ const errorHandler = (err, req, res, next) => {
   res.status(statusCode).json({
     status: statusCode,
     message: err.message,
+    url: req.url,
     meta: res.meta || null,
     data: null,
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
