@@ -9,8 +9,8 @@ dotenv.config();
 
 import 'module-alias/register';
 
-import { Print } from '@/utils/devHelper';
 import connectDatabase from '@/config/connectDB';
+import generateToken from './utils/generateToken';
 
 const app: Application = express();
 
@@ -22,6 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 
 // Routes
+app.get('/', (req, res) => {
+    res.json({
+        token: generateToken({ res, userId: '123456789' }),
+    });
+});
 // Middlewares
 
 const listenServer = async () => {
