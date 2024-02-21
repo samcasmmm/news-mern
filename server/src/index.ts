@@ -18,9 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 
-app.get('/', (req, res) => {
-    res.json({ msg: Print() });
-});
+// Routes
+// Middlewares
 
 const listenServer = async () => {
     app.listen(7000, () => {

@@ -44,8 +44,11 @@
         "morgan": "^1.10.0"
     },
     "_moduleAliases": {
-        "@/resources": "dist/resources",
-        "@/utils": "dist/utils",
-        "@/middleware": "dist/middleware"
+        "@/config": "dist/config",
+        "@/controllers": "dist/controllers",
+        "@/middleware": "dist/middleware",
+        "@/models": "dist/models",
+        "@/routes": "dist/routes",
+        "@/utils": "dist/utils"
     }
 }
