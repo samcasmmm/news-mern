@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
         token: generateToken({ res, userId: '123456789' }),
     });
 });
+
 ROUTES.forEach((api) => {
     const middleware = api.middleware ? api.middleware.map((m) => m) : [];
     app.use(api.path, middleware, api.route);
