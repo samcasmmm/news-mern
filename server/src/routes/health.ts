@@ -14,5 +14,4 @@ const checkHealth = asyncHandler(async (req, res, next) => {
 
 router.get('/health', checkHealth);
 
-
-export
+export default router;

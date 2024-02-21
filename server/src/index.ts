@@ -11,6 +11,7 @@ import 'module-alias/register';
 
 import connectDatabase from '@/config/connectDB';
 import generateToken from './utils/generateToken';
+import { ROUTES } from './routes';
 
 const app: Application = express();
 
@@ -27,6 +28,11 @@ app.get('/', (req, res) => {
         token: generateToken({ res, userId: '123456789' }),
     });
 });
+ROUTES.forEach((api) => {
+    const middleware = api.middleware ? api.middleware.map((m) => m) : [];
+    app.use(api.path, middleware, api.route);
+});
+
 // Middlewares
 
 const listenServer = async () => {
