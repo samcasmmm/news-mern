@@ -26,9 +26,8 @@ app.use(compression());
 
 const listenServer = async () => {
     app.listen(7000, () => {
-        connectDatabase().then(() => {
-            Print(`Server at http://localhost:7000`);
-        });
+        console.log(`Server at http://localhost:7000`);
+        connectDatabase();
     });
 };
 
