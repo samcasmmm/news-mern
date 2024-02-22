@@ -29,7 +29,7 @@ export const ROUTES = [
     {
         title: '',
         description: '',
-        psudoPath: '/api/health',
+        pseudoPath: '/api/health',
         path: pathBuilder(''),
         middleware: [mid1, mid2, mid3],
         route: healthRoute,
