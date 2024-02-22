@@ -1,8 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { NextFunction } from 'express';
 
-const user = new mongoose.Schema(
+interface IUser extends Document {
+    name: string;
+    email: string;
+    role: 'freemium' | 'premium' | 'platinum' | 'admin';
+    password: string;
+    createdAt: Date;
+    updatedAt: Date;
+    matchPassword(password: string): Promise<boolean>;
+}
+
+const userSchema: Schema<IUser> = new Schema<IUser>(
     {
         name: {
             type: String,
@@ -27,17 +36,25 @@ const user = new mongoose.Schema(
     { timestamps: true },
 );
 
-user.pre('save', async function (next) {
+userSchema.pre<IUser>('save', async function (next) {
     if (!this.isModified('password')) {
-        next();
+        return next();
     }
-    const salt = await bcrypt.genSalt(7);
+    const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
+    return next();
 });
 
-user.methods.matchPassword = async function (passwd: string) {
-    return await bcrypt.compare(passwd, this.password);
+userSchema.methods.matchPassword = async function (
+    password: string,
+): Promise<boolean> {
+    try {
+        return await bcrypt.compare(password, this.password);
+    } catch (error) {
+        return false;
+    }
 };
 
-const User = mongoose.model('User', user);
+const User: Model<IUser> = mongoose.model<IUser>('User', userSchema);
+
 export default User;
