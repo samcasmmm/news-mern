@@ -26,12 +26,4 @@ export const ROUTES = [
         middleware: [mid1, mid2, mid3],
         route: healthRoute,
     },
-    {
-        title: '',
-        description: '',
-        pseudoPath: '/api/health',
-        path: pathBuilder(''),
-        middleware: [mid1, mid2, mid3],
-        route: healthRoute,
-    },
 ];
