@@ -31,4 +31,13 @@ user.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next();
     }
+    const salt = await bcrypt.genSalt(7);
+    this.password = await bcrypt.hash(this.password, salt);
 });
+
+user.methods.matchPassword = async function (passwd: string) {
+    return await bcrypt.compare(passwd, this.password);
+};
+
+const User = mongoose.model('User', user);
+export default User;
