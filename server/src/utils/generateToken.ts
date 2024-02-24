@@ -1,12 +1,13 @@
 import { Response } from 'express';
 import jwt, { Secret } from 'jsonwebtoken';
+// import {} from 'mongoose'
 
 type tokenProps = {
     res: Response;
     userId: string | number;
 };
 
-const generateToken = ({ res, userId }: tokenProps) => {
+const generateToken = (res: Response, userId: string | number) => {
     const secretKey = process.env.SECRET_KEY!;
 
     const token = jwt.sign({ userId }, secretKey, {

@@ -1,3 +1,4 @@
+// Packages Imports
 import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import compression from 'compression';
@@ -6,15 +7,24 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 dotenv.config();
-
 import 'module-alias/register';
 
-import connectDatabase from '@/config/connectDB';
-import generateToken from './utils/generateToken';
-import { ROUTES } from './routes';
 
+// File Imports
+import connectDatabase from '@/config/connectDB';
+import generateToken from '@/utils/generateToken'
+import { ROUTES } from './routes';
+import { errorHandler, notFound } from '@/middlewares/error.middleware';
+import { pathBuilder } from './utils/helpers';
+
+import usersRoute from '@/routes/users.route'
+
+
+// Initialize App
 const app: Application = express();
 
+
+// Initialize middleware
 app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
@@ -22,19 +32,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 
+
+// Custom middleware
+
 // Routes
+// app.use(path,middlewares,routeFn)
+
+
 app.get('/', (req, res) => {
     res.json({
-        token: generateToken({ res, userId: '123456789' }),
-    });
+        status:res.statusCode,
+        message:'Welcome to Homepage',
+        meta:null,
+        data:null
+     })
 });
 
-ROUTES.forEach((api) => {
-    const middleware = api.middleware ? api.middleware.map((m) => m) : [];
-    app.use(api.path, middleware, api.route);
-});
+app.use(pathBuilder('/users'), usersRoute)
 
 // Middlewares
+
+app.use(errorHandler)
+app.use(notFound)
 
 const listenServer = async () => {
     app.listen(7000, () => {
