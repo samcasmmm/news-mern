@@ -19,9 +19,17 @@ const pathBuilder = (path?: string) => {
 
 export const ROUTES = [
     {
-        title: '',
-        description: '',
+        title: 'Health',
+        description: 'Check health of server',
         pseudoPath: '/api/health',
+        path: pathBuilder(''),
+        middleware: [mid1, mid2, mid3],
+        route: healthRoute,
+    },
+    {
+        title: 'Users',
+        description: 'Users routes',
+        pseudoPath: '/api/users',
         path: pathBuilder(''),
         middleware: [mid1, mid2, mid3],
         route: healthRoute,
