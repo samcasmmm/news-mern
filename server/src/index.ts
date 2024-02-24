@@ -10,9 +10,9 @@ dotenv.config();
 import 'module-alias/register';
 
 import connectDatabase from '@/config/connectDB';
-import generateToken from './utils/generateToken';
+import generateToken from '@/utils/generateToken'
 import { ROUTES } from './routes';
-
+import { errorHandler, notFound } from '@/middlewares/error.middleware';
 const app: Application = express();
 
 app.use(helmet());
@@ -35,6 +35,9 @@ ROUTES.forEach((api) => {
 });
 
 // Middlewares
+
+app.use(errorHandler)
+app.use(notFound)
 
 const listenServer = async () => {
     app.listen(7000, () => {
