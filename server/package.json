@@ -48,7 +48,7 @@
     "_moduleAliases": {
         "@/config": "dist/config",
         "@/controllers": "dist/controllers",
-        "@/middleware": "dist/middleware",
+        "@/middlewares": "dist/middlewares",
         "@/models": "dist/models",
         "@/routes": "dist/routes",
         "@/utils": "dist/utils"
