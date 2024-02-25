@@ -33,7 +33,28 @@ const health = expressAsyncHandler(
  */
 
 const signIn = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {},
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+
+        if (user && (await user.matchPassword(password))) {
+            res.json({
+                status: res.statusCode,
+                message: 'Login Successfully',
+                meta: null,
+                data: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    token: generateToken(res, user._id),
+                },
+            });
+        } else {
+            res.status(401);
+            throw new Error('Invalid Email or Password');
+        }
+    },
 );
 
 /**
