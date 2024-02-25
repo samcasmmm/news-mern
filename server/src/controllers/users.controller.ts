@@ -23,7 +23,7 @@ const health = expressAsyncHandler(
 
 /**
  * Authenticate a user and generate a JWT token.
- * @route POST /api/user/login
+ * @route POST /api/user/signIn
  * @group User - Operations about user
  * @param {string} email.body.required - User's email
  * @param {string} password.body.required - User's password
@@ -56,6 +56,19 @@ const signIn = expressAsyncHandler(
         }
     },
 );
+
+/**
+ * Authenticate a user and generate a JWT token.
+ * @route POST /api/user/signUp
+ * @group User - Operations about user
+ * @param {string} name.body.required - User's name
+ * @param {string} email.body.required - User's email
+ * @param {string} role.body.required - User's role
+ * @param {string} password.body.required - User's password
+ * @returns {object} 200 - An object containing user information and JWT token
+ * @returns {Error} 401 - Unauthorized
+ * @returns {Error} 500 - Internal server error
+ */
 
 const signUp = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -94,7 +107,21 @@ const signUp = expressAsyncHandler(
     },
 );
 
+/**
+ * Authenticate a user and generate a JWT token.
+ * @route GET /api/user/profile
+ * @group User - Operations about user
+ * @param {string} berear.header.required - JWT Token
+ * @returns {object} 200 - An object containing user information and JWT token
+ * @returns {Error} 401 - Unauthorized
+ * @returns {Error} 500 - Internal server error
+ */
+
 const empty = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {},
+);
+
+const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
