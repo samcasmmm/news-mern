@@ -69,6 +69,7 @@ const signIn = expressAsyncHandler(
  * @returns {Error} 401 - Unauthorized
  * @returns {Error} 500 - Internal server error
  */
+
 const signUp = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const { name, email, role, password } = req.body;
@@ -105,6 +106,16 @@ const signUp = expressAsyncHandler(
         }
     },
 );
+
+/**
+ * Authenticate a user and generate a JWT token.
+ * @route GET /api/user/profile
+ * @group User - Operations about user
+ * @param {string} berear.header.required - JWT Token
+ * @returns {object} 200 - An object containing user information and JWT token
+ * @returns {Error} 401 - Unauthorized
+ * @returns {Error} 500 - Internal server error
+ */
 
 const empty = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
