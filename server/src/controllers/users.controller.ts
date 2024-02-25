@@ -23,7 +23,7 @@ const health = expressAsyncHandler(
 
 /**
  * Authenticate a user and generate a JWT token.
- * @route POST /api/user/login
+ * @route POST /api/user/signIn
  * @group User - Operations about user
  * @param {string} email.body.required - User's email
  * @param {string} password.body.required - User's password
@@ -33,30 +33,19 @@ const health = expressAsyncHandler(
  */
 
 const signIn = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-
-        if (user && (await user.matchPassword(password))) {
-            res.json({
-                status: res.statusCode,
-                message: 'Login Successfully',
-                meta: null,
-                data: {
-                    _id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role,
-                    token: generateToken(res, user._id),
-                },
-            });
-        } else {
-            res.status(401);
-            throw new Error('Invalid Email or Password');
-        }
-    },
+    async (req: Request, res: Response, next: NextFunction) => {},
 );
 
+/**
+ * Authenticate a user and generate a JWT token.
+ * @route POST /api/user/signUp
+ * @group User - Operations about user
+ * @param {string} email.body.required - User's email
+ * @param {string} password.body.required - User's password
+ * @returns {object} 200 - An object containing user information and JWT token
+ * @returns {Error} 401 - Unauthorized
+ * @returns {Error} 500 - Internal server error
+ */
 const signUp = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const { name, email, role, password } = req.body;
