@@ -58,7 +58,7 @@ const signIn = expressAsyncHandler(
 );
 
 /**
- * Authenticate a user and generate a JWT token.
+ * Register a user and generate a JWT token.
  * @route POST /api/user/signUp
  * @group User - Operations about user
  * @param {string} name.body.required - User's name
@@ -108,21 +108,24 @@ const signUp = expressAsyncHandler(
 );
 
 /**
- * Authenticate a user and generate a JWT token.
+ * Get user all details by JWT.
  * @route GET /api/user/profile
  * @group User - Operations about user
- * @param {string} berear.header.required - JWT Token
- * @returns {object} 200 - An object containing user information and JWT token
+ * @param {string} jwt.required - JWT
+ * @returns {object} 200 - An object containing user information
  * @returns {Error} 401 - Unauthorized
  * @returns {Error} 500 - Internal server error
  */
 
-const empty = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {},
+const profile = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const user = await User.findById(req.user_id);
+        console.log(user);
+    },
 );
 
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
-export { health, signIn, signUp };
+export { health, signIn, signUp, profile };
