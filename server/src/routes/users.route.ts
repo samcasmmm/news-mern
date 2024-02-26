@@ -3,7 +3,7 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/hi', health);
+router.get('/health', health);
 
 router.post('/signIn', signIn);
 router.post('/signUp', signUp);
