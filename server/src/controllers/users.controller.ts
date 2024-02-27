@@ -108,13 +108,14 @@ const signUp = expressAsyncHandler(
 );
 
 /**
- * Get user all details by JWT.
+ * Get user details by JWT.
  * @route GET /api/user/profile
  * @group User - Operations about user
- * @param {string} jwt.required - JWT
+ * @param {string} jwt.required - JWT token obtained during user authentication
  * @returns {object} 200 - An object containing user information
- * @returns {Error} 401 - Unauthorized
- * @returns {Error} 500 - Internal server error
+ * @returns {Error} 401 - Unauthorized. Invalid or expired JWT token.
+ * @returns {Error} 404 - User not found. User associated with the provided JWT token does not exist.
+ * @returns {Error} 500 - Internal server error. An unexpected error occurred on the server.
  */
 
 interface UpdateReq extends Request {
@@ -144,6 +145,38 @@ const profile = expressAsyncHandler(
     },
 );
 
+const updateProfile = expressAsyncHandler(
+    async (req: UpdateReq, res: Response, next: NextFunction) => {
+        const { name, email, role, password } = req.body;
+        const user = await User.findById(req.user?.id);
+        if (user) {
+            user.name = name || user.name;
+            user.email = email || user.email;
+            if (req.body.role) {
+                user.role = role;
+            }
+            if (req.body.password) {
+                user.password = password;
+            }
+            const updatedUser = await user.save();
+            res.json({
+                status: res.statusCode,
+                message: 'Profile Update Successfully',
+                meta: '',
+                data: {
+                    _id: updatedUser._id,
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                    role: updatedUser.role,
+                    token: generateToken(res, updatedUser._id),
+                },
+            });
+        } else {
+            res.status(404);
+            throw new Error('User not found');
+        }
+    },
+);
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
