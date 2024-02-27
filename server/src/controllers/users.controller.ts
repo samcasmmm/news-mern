@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import User from '@/models/users.model';
+import User, { IUser } from '@/models/users.model';
 import generateToken from '@/utils/generateToken';
 
 /**
@@ -117,9 +117,13 @@ const signUp = expressAsyncHandler(
  * @returns {Error} 500 - Internal server error
  */
 
+interface UpdateReq extends Request {
+    user?: IUser;
+}
+
 const profile = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {
-        const user = await User.findById(req.user_id);
+    async (req: UpdateReq, res: Response, next: NextFunction) => {
+        const user = await User.findById(req.user?.id);
         console.log(user);
     },
 );

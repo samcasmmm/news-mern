@@ -11,7 +11,7 @@ interface TokenPayload extends JwtPayload {
     userId: string;
 }
 
-const Protect = expressAsyncHandler(
+const protect = expressAsyncHandler(
     async (req: AuthRequest, res: Response, next: NextFunction) => {
         let token: string | undefined;
 
@@ -49,7 +49,7 @@ const Protect = expressAsyncHandler(
     },
 );
 
-const admin = expressAsyncHandler(
+const isAdmin = expressAsyncHandler(
     async (req: AuthRequest, res: Response, next: NextFunction) => {
         let token: string | undefined;
         let secret_key = process.env.SECRET_KEY!;
@@ -90,4 +90,4 @@ const admin = expressAsyncHandler(
     },
 );
 
-export { Protect, admin };
+export { protect, isAdmin };
