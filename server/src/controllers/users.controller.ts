@@ -133,7 +133,7 @@ const profile = expressAsyncHandler(
                     _id: user._id,
                     name: user.name,
                     email: user.email,
-                    userType: user.role,
+                    role: user.role,
                     createdAt: user.createdAt,
                 },
             });
