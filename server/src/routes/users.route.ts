@@ -4,7 +4,7 @@ import {
     signUp,
     profile,
 } from '@/controllers/users.controller';
-import { protect, admin } from '../middlewares/auth.middleware';
+import { protect, isAdmin } from '../middlewares/auth.middleware';
 import express from 'express';
 
 const router = express.Router();
