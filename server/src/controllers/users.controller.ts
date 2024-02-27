@@ -145,6 +145,22 @@ const profile = expressAsyncHandler(
     },
 );
 
+/**
+ * Update user profile.
+ * @route PUT /api/user/update-profile
+ * @group User - Operations about user
+ * @param {string} jwt.required - JWT token obtained during user authentication
+ * @param {object} body.required - Request body containing updated user profile details
+ * @param {string} [body.name] - Updated user name
+ * @param {string} [body.email] - Updated user email
+ * @param {string} [body.role] - Updated user role (only accessible to admin)
+ * @param {string} [body.password] - Updated user password
+ * @returns {object} 200 - An object containing updated user information and a new JWT token
+ * @returns {Error} 401 - Unauthorized. Invalid or expired JWT token.
+ * @returns {Error} 404 - User not found. User associated with the provided JWT token does not exist.
+ * @returns {Error} 500 - Internal server error. An unexpected error occurred on the server.
+ */
+
 const updateProfile = expressAsyncHandler(
     async (req: UpdateReq, res: Response, next: NextFunction) => {
         const { name, email, role, password } = req.body;
@@ -177,6 +193,7 @@ const updateProfile = expressAsyncHandler(
         }
     },
 );
+
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
