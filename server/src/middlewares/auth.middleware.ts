@@ -1,10 +1,10 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import express, { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import User, { UserDocument } from '@/models/users.model';
+import User, { IUser } from '@/models/users.model';
 
 interface AuthRequest extends Request {
-    user?: UserDocument;
+    user?: IUser;
 }
 
 interface TokenPayload extends JwtPayload {
@@ -23,7 +23,7 @@ const Protect = expressAsyncHandler(
                 token = req.headers.authorization.split(' ')[1];
                 const secretKey = process.env.SECRET_KEY!;
                 const decoded = jwt.verify(token, secretKey) as TokenPayload;
-                const user: UserDocument | null = await User.findById(
+                const user: IUser | null = await User.findById(
                     decoded.userId,
                 ).select('-password');
 
@@ -60,11 +60,11 @@ const admin = expressAsyncHandler(
             try {
                 token = req.headers.authorization.split(' ')[1];
                 const decoded = jwt.verify(token, secret_key) as TokenPayload;
-                const user: UserDocument | null = await User.findById(
+                const user: IUser | null = await User.findById(
                     decoded.userId,
                 ).select('-password');
 
-                if (user && user.userType === 'admin') {
+                if (user && user.role === 'admin') {
                     req.user = user;
                     console.log(req.user);
                     next();

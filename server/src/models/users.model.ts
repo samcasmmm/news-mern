@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-interface IUser extends Document {
+export interface IUser extends Document {
     name: string;
     email: string;
     role: 'freemium' | 'premium' | 'platinum' | 'admin';
