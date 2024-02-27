@@ -80,7 +80,7 @@ const userProfile = asyncHandler(async (req, res, next) => {
     res.json({
       status: res.statusCode,
       message: 'Fetch Profile Successfully',
-      meta: '',
+      meta: null,
       data: {
         _id: user._id,
         name: user.name,

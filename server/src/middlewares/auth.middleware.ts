@@ -32,19 +32,32 @@ const protect = expressAsyncHandler(
                     console.log(req.user);
                     next();
                 } else {
-                    res.status(404);
+                    res.status(404).send({
+                        status: res.statusCode,
+                        message: 'Not Found',
+                        meta: null,
+                        data: null,
+                    });
                     throw new Error('User not found');
                 }
             } catch (error) {
                 console.error(error);
                 res.status(401).send({
+                    status: res.statusCode,
                     message: 'Not Authorized, Token Failed',
+                    meta: null,
+                    data: null,
                 });
             }
         }
 
         if (!token) {
-            res.status(401).send({ message: 'Not Authorized, No Token' });
+            res.status(401).send({
+                status: res.statusCode,
+                message: 'Not Authorized, No Token',
+                meta: null,
+                data: null,
+            });
         }
     },
 );
@@ -70,21 +83,32 @@ const isAdmin = expressAsyncHandler(
                     next();
                 } else {
                     res.status(401).send({
+                        status: res.statusCode,
                         message: 'Not Authorized, No Access',
+                        meta: null,
+                        data: null,
                     });
                     throw new Error('Not Authorized, No Access');
                 }
             } catch (error) {
                 console.error(error);
                 res.status(401).send({
+                    status: res.statusCode,
                     message: 'Not Authorized, Token Failed',
+                    meta: null,
+                    data: null,
                 });
                 throw new Error('Not Authorized, Token Failed');
             }
         }
 
         if (!token) {
-            res.status(401).send({ message: 'Not Authorized, No Token' });
+            res.status(401).send({
+                status: res.statusCode,
+                message: 'Not Authorized, No Token',
+                meta: null,
+                data: null,
+            });
             throw new Error('Not Authorized, No Token');
         }
     },
