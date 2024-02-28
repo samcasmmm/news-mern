@@ -198,4 +198,4 @@ const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
-export { health, signIn, signUp, profile };
+export { health, signIn, signUp, profile, updateProfile };
