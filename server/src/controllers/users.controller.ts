@@ -194,8 +194,31 @@ const updateProfile = expressAsyncHandler(
     },
 );
 
+const userById = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { id } = req.params;
+        const user = await User.findById(id);
+        if (user) {
+            res.json({
+                status: res.statusCode,
+                message: 'Fetch Profile Successfully',
+                meta: null,
+                data: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    createdAt: user.createdAt,
+                },
+            });
+        } else {
+            res.status(404);
+            throw new Error('User not found');
+        }
+    },
+);
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
-export { health, signIn, signUp, profile, updateProfile };
+export { health, signIn, signUp, profile, updateProfile, userById };
