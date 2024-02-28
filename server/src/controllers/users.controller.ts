@@ -194,6 +194,16 @@ const updateProfile = expressAsyncHandler(
     },
 );
 
+/**
+ * Get user profile by ID.
+ * @route GET /api/user/{id}
+ * @group User - Operations about user
+ * @param {string} id.path.required - User ID
+ * @returns {object} 200 - An object containing user information
+ * @returns {Error} 404 - User not found. The user with the specified ID does not exist.
+ * @returns {Error} 500 - Internal server error. An unexpected error occurred on the server.
+ */
+
 const userById = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const { id } = req.params;
@@ -217,6 +227,7 @@ const userById = expressAsyncHandler(
         }
     },
 );
+
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
