@@ -5,6 +5,7 @@ import {
     profile,
     updateProfile,
     userById,
+    searchUserByQuery,
 } from '@/controllers/users.controller';
 import { protect, isAdmin } from '../middlewares/auth.middleware';
 import express from 'express';
@@ -16,6 +17,8 @@ router.get('/health', health);
 router.route('/profile').get(protect, profile).put(protect, updateProfile);
 
 router.get('/profile/:id', userById);
+
+router.get('/search', searchUserByQuery);
 
 router.post('/signIn', signIn);
 

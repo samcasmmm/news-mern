@@ -228,8 +228,40 @@ const userById = expressAsyncHandler(
     },
 );
 
+const searchUserByQuery = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { email } = req.query;
+        const user = await User.findOne({ email: email });
+        if (user) {
+            res.json({
+                status: res.statusCode,
+                message: 'Fetch Profile Successfully',
+                meta: null,
+                data: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    createdAt: user.createdAt,
+                },
+            });
+        } else {
+            res.status(404);
+            throw new Error('User not found');
+        }
+    },
+);
+
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
-export { health, signIn, signUp, profile, updateProfile, userById };
+export {
+    health,
+    signIn,
+    signUp,
+    profile,
+    updateProfile,
+    userById,
+    searchUserByQuery,
+};
