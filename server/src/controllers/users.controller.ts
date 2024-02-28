@@ -194,8 +194,74 @@ const updateProfile = expressAsyncHandler(
     },
 );
 
+/**
+ * Get user profile by ID.
+ * @route GET /api/user/{id}
+ * @group User - Operations about user
+ * @param {string} id.path.required - User ID
+ * @returns {object} 200 - An object containing user information
+ * @returns {Error} 404 - User not found. The user with the specified ID does not exist.
+ * @returns {Error} 500 - Internal server error. An unexpected error occurred on the server.
+ */
+
+const userById = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { id } = req.params;
+        const user = await User.findById(id);
+        if (user) {
+            res.json({
+                status: res.statusCode,
+                message: 'Fetch Profile Successfully',
+                meta: null,
+                data: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    createdAt: user.createdAt,
+                },
+            });
+        } else {
+            res.status(404);
+            throw new Error('User not found');
+        }
+    },
+);
+
+const searchUserByQuery = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { email } = req.query;
+        const user = await User.findOne({ email: email });
+        if (user) {
+            res.json({
+                status: res.statusCode,
+                message: 'Fetch Profile Successfully',
+                meta: null,
+                data: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    createdAt: user.createdAt,
+                },
+            });
+        } else {
+            res.status(404);
+            throw new Error('User not found');
+        }
+    },
+);
+
 const empty2 = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
-export { health, signIn, signUp, profile };
+export {
+    health,
+    signIn,
+    signUp,
+    profile,
+    updateProfile,
+    userById,
+    searchUserByQuery,
+};
