@@ -231,21 +231,22 @@ const userById = expressAsyncHandler(
 const searchUserByQuery = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const { name, email } = req.query;
-        let query = {};
 
-        if (name) {
-            query = { name };
-        } else if (email) {
-            query = { email };
-        } else {
+        if (!name && !email) {
             return res.status(400).json({
                 message: 'Please provide a name or email for the search',
             });
         }
 
-        const user = await User.findOne({ email: email });
+        let user;
+        if (email) {
+            user = await User.findOne({ email });
+        } else {
+            user = await User.findOne({ name });
+        }
+
         if (user) {
-            res.json({
+            return res.json({
                 status: res.statusCode,
                 message: 'Fetch Profile Successfully',
                 meta: null,
@@ -258,8 +259,7 @@ const searchUserByQuery = expressAsyncHandler(
                 },
             });
         } else {
-            res.status(404);
-            throw new Error('User not found');
+            return res.status(404).json({ message: 'User not found' });
         }
     },
 );
