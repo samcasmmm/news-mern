@@ -230,7 +230,19 @@ const userById = expressAsyncHandler(
 
 const searchUserByQuery = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-        const { email } = req.query;
+        const { name, email } = req.query;
+        let query = {};
+
+        if (name) {
+            query = { name };
+        } else if (email) {
+            query = { email };
+        } else {
+            return res.status(400).json({
+                message: 'Please provide a name or email for the search',
+            });
+        }
+
         const user = await User.findOne({ email: email });
         if (user) {
             res.json({
