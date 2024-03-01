@@ -293,7 +293,11 @@ const searchUserByQuery = async (
     }
 };
 
-const empty2 = expressAsyncHandler(
+const getAllUsers = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {},
+);
+
+const emp = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {},
 );
 
