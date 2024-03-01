@@ -18,7 +18,7 @@ router.route('/profile').get(protect, profile).put(protect, updateProfile);
 
 router.get('/profile/:id', userById);
 
-router.get('/search', searchUserByQuery);
+router.get('/search', protect, searchUserByQuery);
 
 router.post('/signIn', signIn);
 
