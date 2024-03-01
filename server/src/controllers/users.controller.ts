@@ -228,6 +228,18 @@ const userById = expressAsyncHandler(
     },
 );
 
+/**
+ * Search for users by name or email.
+ * @route GET /api/users/search
+ * @group Users - Operations related to users
+ * @param {string} [name.query] - The name to search for.
+ * @param {string} [email.query] - The email to search for.
+ * @returns {object} 200 - An array of user profiles matching the search criteria.
+ * @returns {object} 400 - Bad request if both name and email are provided or if neither are provided.
+ * @returns {object} 404 - Not found if no users match the search criteria.
+ * @returns {Error} 500 - Internal server error.
+ */
+
 const searchUserByQuery = async (
     req: Request,
     res: Response,
