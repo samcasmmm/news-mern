@@ -240,61 +240,63 @@ const userById = expressAsyncHandler(
  * @returns {Error} 500 - Internal server error.
  */
 
-const searchUserByQuery = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) => {
-    const { name, email } = req.query;
+const searchUserByQuery = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const { name, email } = req.query;
 
-    if (name && email) {
-        return res.status(400).json({
-            status: res.statusCode,
-            message:
-                'Please provide either a name or an email, not both, for the search',
-            meta: null,
-            data: null,
-        });
-    }
+        if (name && email) {
+            res.status(400).json({
+                status: res.statusCode,
+                message:
+                    'Please provide either a name or an email, not both, for the search',
+                meta: null,
+                data: null,
+            });
+        }
 
-    if (!name && !email) {
-        return res.status(400).json({
-            status: res.statusCode,
-            message: 'Please provide a name or email for the search',
-            meta: null,
-            data: null,
-        });
-    }
+        if (!name && !email) {
+            res.status(400).json({
+                status: res.statusCode,
+                message: 'Please provide a name or email for the search',
+                meta: null,
+                data: null,
+            });
+        }
 
-    let users;
-    if (name) {
-        const regex = new RegExp(name.toString(), 'i');
-        users = await User.find({ name: { $regex: regex } });
-    } else {
-        users = await User.find({ email });
-    }
+        let users;
+        if (name) {
+            const regex = new RegExp(name.toString(), 'i');
+            users = await User.find({ name: { $regex: regex } });
+        } else {
+            users = await User.find({ email });
+        }
 
-    if (users.length > 0) {
-        const responseData = users.map((user) => ({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            createdAt: user.createdAt,
-        }));
-        res.json({
-            status: res.statusCode,
-            message: 'Fetch Profiles Successfully',
-            meta: null,
-            data: responseData,
-        });
-    } else {
-        res.status(404).json({ message: 'No users found' });
-    }
-};
+        if (users.length > 0) {
+            const responseData = users.map((user) => ({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                createdAt: user.createdAt,
+            }));
+            res.json({
+                status: res.statusCode,
+                message: 'Fetch Profiles Successfully',
+                meta: null,
+                data: responseData,
+            });
+        } else {
+            res.status(404).json({ message: 'No users found' });
+        }
+    },
+);
 
 const getAllUsers = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {},
+    async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> => {},
 );
 
 const emp = expressAsyncHandler(
