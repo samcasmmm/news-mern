@@ -242,51 +242,68 @@ const userById = expressAsyncHandler(
 
 const searchUserByQuery = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-        const { name, email } = req.query;
+        const { name, email, role } = req.query;
 
-        if (name && email) {
+        // Check if both name and email are provided
+        // if (name && email) {
+        //     res.status(400).json({
+        //         status: res.statusCode,
+        //         message:
+        //             'Please provide either a name or an email, not both, for the search',
+        //         meta: null,
+        //         data: null,
+        //     });
+        // }
+
+        // Check if neither name nor email is provided
+        if (!name && !email && !role) {
             res.status(400).json({
                 status: res.statusCode,
-                message:
-                    'Please provide either a name or an email, not both, for the search',
+                message: 'Please provide a name, email, or role for the search',
                 meta: null,
                 data: null,
             });
         }
 
-        if (!name && !email) {
-            res.status(400).json({
-                status: res.statusCode,
-                message: 'Please provide a name or email for the search',
-                meta: null,
-                data: null,
-            });
-        }
+        try {
+            let query: any = {};
 
-        let users;
-        if (name) {
-            const regex = new RegExp(name.toString(), 'i');
-            users = await User.find({ name: { $regex: regex } });
-        } else {
-            users = await User.find({ email });
-        }
+            // Build the query based on the provided parameters
+            if (name) {
+                const nameRegex = new RegExp(name.toString(), 'i');
+                query.name = { $regex: nameRegex };
+            }
+            if (email) {
+                query.email = email;
+            }
+            if (role) {
+                query.role = role;
+            }
 
-        if (users.length > 0) {
-            const responseData = users.map((user) => ({
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                createdAt: user.createdAt,
-            }));
-            res.json({
-                status: res.statusCode,
-                message: 'Fetch Profiles Successfully',
-                meta: null,
-                data: responseData,
-            });
-        } else {
-            res.status(404).json({ message: 'No users found' });
+            // Find users based on the constructed query
+            const users = await User.find(query);
+
+            // Return the found users
+            if (users.length > 0) {
+                const responseData = users.map((user) => ({
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    createdAt: user.createdAt,
+                }));
+                res.json({
+                    status: res.statusCode,
+                    message: 'Fetch Profiles Successfully',
+                    meta: null,
+                    data: responseData,
+                });
+            } else {
+                res.status(404).json({ message: 'No users found' });
+            }
+        } catch (error) {
+            console.error('Error searching for users:', error);
+            res.status(500).json({ message: 'Internal server error' });
         }
     },
 );
