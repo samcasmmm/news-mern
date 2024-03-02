@@ -315,16 +315,79 @@ const searchUserByQuery = expressAsyncHandler(
     },
 );
 
-const getAllUsers = expressAsyncHandler(
-    async (
-        req: Request,
-        res: Response,
-        next: NextFunction,
-    ): Promise<void> => {},
-);
+enum UserRole {
+    All = 'all',
+    Freemium = 'freemium',
+    Premium = 'premium',
+    Platinum = 'platinum',
+    Editor = 'editor',
+}
 
-const emp = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {},
+interface QueryParams {
+    role?: UserRole;
+    page?: number;
+    size?: number;
+}
+
+const getAllUsers = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const { role, page = 1, size = 10 }: QueryParams = req.query;
+        try {
+            let query = {};
+            if (role === 'all') {
+            } else if (
+                role === 'freemium' ||
+                role === 'premium' ||
+                role === 'platinum' ||
+                role === 'editor'
+            ) {
+                query = { role };
+            } else {
+                res.status(400).json({
+                    status: res.statusCode,
+                    message: 'Invalid role',
+                    meta: null,
+                    data: null,
+                });
+            }
+            const usersCount = await User.countDocuments(query);
+            const totalPages = Math.ceil(usersCount / size);
+
+            if (page > totalPages) {
+                res.status(400).json({
+                    status: res.statusCode,
+                    message: 'Invalid page number',
+                    meta: null,
+                    data: null,
+                });
+            }
+
+            const users = await User.find(query)
+                .select('-password')
+                .skip((page - 1) * size)
+                .limit(Number(size));
+
+            res.status(200).json({
+                status: 'success',
+                message: 'Users fetched successfully',
+                meta: null,
+                data: {
+                    total: usersCount,
+                    perPage: size,
+                    page: Number(page),
+                    totalPages: totalPages,
+                    users: users,
+                },
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: res.statusCode,
+                message: 'An error occurred while fetching users',
+                meta: null,
+                data: null,
+            });
+        }
+    },
 );
 
 export {
@@ -335,4 +398,5 @@ export {
     updateProfile,
     userById,
     searchUserByQuery,
+    getAllUsers,
 };

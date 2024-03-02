@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 export interface IUser extends Document {
     name: string;
     email: string;
-    role: 'freemium' | 'premium' | 'platinum' | 'admin';
+    role: 'freemium' | 'premium' | 'platinum' | 'editor' | 'admin';
     password: string;
     createdAt: Date;
     updatedAt: Date;
