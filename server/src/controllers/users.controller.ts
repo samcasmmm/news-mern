@@ -229,76 +229,165 @@ const userById = expressAsyncHandler(
 );
 
 /**
- * Search for users by name or email.
+ * Search for users by name, email, or role.
  * @route GET /api/users/search
  * @group Users - Operations related to users
  * @param {string} [name.query] - The name to search for.
  * @param {string} [email.query] - The email to search for.
+ * @param {string} [role.query] - The role to search for.
  * @returns {object} 200 - An array of user profiles matching the search criteria.
- * @returns {object} 400 - Bad request if both name and email are provided or if neither are provided.
+ * @returns {object} 400 - Bad request if neither name, email, nor role is provided.
  * @returns {object} 404 - Not found if no users match the search criteria.
  * @returns {Error} 500 - Internal server error.
  */
 
-const searchUserByQuery = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) => {
-    const { name, email } = req.query;
+const searchUserByQuery = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const { name, email, role } = req.query;
 
-    if (name && email) {
-        return res.status(400).json({
-            status: res.statusCode,
-            message:
-                'Please provide either a name or an email, not both, for the search',
-            meta: null,
-            data: null,
-        });
-    }
+        // Check if both name and email are provided
+        // if (name && email) {
+        //     res.status(400).json({
+        //         status: res.statusCode,
+        //         message:
+        //             'Please provide either a name or an email, not both, for the search',
+        //         meta: null,
+        //         data: null,
+        //     });
+        // }
 
-    if (!name && !email) {
-        return res.status(400).json({
-            status: res.statusCode,
-            message: 'Please provide a name or email for the search',
-            meta: null,
-            data: null,
-        });
-    }
+        if (!name && !email && !role) {
+            res.status(400).json({
+                status: res.statusCode,
+                message: 'Please provide a name, email, or role for the search',
+                meta: null,
+                data: null,
+            });
+        }
 
-    let users;
-    if (name) {
-        const regex = new RegExp(name.toString(), 'i');
-        users = await User.find({ name: { $regex: regex } });
-    } else {
-        users = await User.find({ email });
-    }
+        try {
+            let query: any = {};
 
-    if (users.length > 0) {
-        const responseData = users.map((user) => ({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            createdAt: user.createdAt,
-        }));
-        res.json({
-            status: res.statusCode,
-            message: 'Fetch Profiles Successfully',
-            meta: null,
-            data: responseData,
-        });
-    } else {
-        res.status(404).json({ message: 'No users found' });
-    }
-};
+            if (name) {
+                const nameRegex = new RegExp(name.toString(), 'i');
+                query.name = { $regex: nameRegex };
+            }
+            if (email) {
+                query.email = email;
+            }
+            if (role) {
+                query.role = role;
+            }
 
-const getAllUsers = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {},
+            const users = await User.find(query);
+
+            if (users.length > 0) {
+                const responseData = users.map((user) => ({
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    createdAt: user.createdAt,
+                }));
+                res.json({
+                    status: res.statusCode,
+                    message: 'Fetch Profiles Successfully',
+                    meta: null,
+                    data: responseData,
+                });
+            } else {
+                res.status(404).json({
+                    status: res.statusCode,
+                    message: 'No users found',
+                    meta: null,
+                    data: null,
+                });
+            }
+        } catch (error) {
+            console.error('Error searching for users:', error);
+            res.status(500).json({
+                status: res.statusCode,
+                message: 'Internal server error',
+                meta: null,
+                data: null,
+            });
+        }
+    },
 );
 
-const emp = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {},
+enum UserRole {
+    All = 'all',
+    Freemium = 'freemium',
+    Premium = 'premium',
+    Platinum = 'platinum',
+    Editor = 'editor',
+}
+
+interface QueryParams {
+    role?: UserRole;
+    page?: number;
+    size?: number;
+}
+
+const getAllUsers = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const { role, page = 1, size = 10 }: QueryParams = req.query;
+        try {
+            let query = {};
+            if (role === 'all') {
+            } else if (
+                role === 'freemium' ||
+                role === 'premium' ||
+                role === 'platinum' ||
+                role === 'editor'
+            ) {
+                query = { role };
+            } else {
+                res.status(400).json({
+                    status: res.statusCode,
+                    message: 'Invalid role',
+                    meta: null,
+                    data: null,
+                });
+            }
+            const usersCount = await User.countDocuments(query);
+            const totalPages = Math.ceil(usersCount / size);
+
+            if (page > totalPages) {
+                res.status(400).json({
+                    status: res.statusCode,
+                    message: 'Invalid page number',
+                    meta: null,
+                    data: null,
+                });
+            }
+
+            const users = await User.find(query)
+                .select('-password')
+                .skip((page - 1) * size)
+                .limit(Number(size));
+
+            res.status(200).json({
+                status: 'success',
+                message: 'Users fetched successfully',
+                meta: null,
+                data: {
+                    total: usersCount,
+                    perPage: size,
+                    page: Number(page),
+                    totalPages: totalPages,
+                    users: users,
+                },
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: res.statusCode,
+                message: 'An error occurred while fetching users',
+                meta: null,
+                data: null,
+            });
+        }
+    },
 );
 
 export {
@@ -309,4 +398,5 @@ export {
     updateProfile,
     userById,
     searchUserByQuery,
+    getAllUsers,
 };

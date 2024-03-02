@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 export interface IUser extends Document {
     name: string;
     email: string;
-    role: 'freemium' | 'premium' | 'platinum' | 'admin';
+    role: 'freemium' | 'premium' | 'platinum' | 'editor' | 'admin';
     password: string;
     createdAt: Date;
     updatedAt: Date;
@@ -25,7 +25,7 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
         role: {
             type: String,
             required: true,
-            enum: ['freemium', 'premium', 'platinum', 'admin'],
+            enum: ['freemium', 'premium', 'platinum', 'editor', 'admin'],
             default: 'freemium',
         },
         password: {
