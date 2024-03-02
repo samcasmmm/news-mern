@@ -255,7 +255,6 @@ const searchUserByQuery = expressAsyncHandler(
         //     });
         // }
 
-        // Check if neither name nor email is provided
         if (!name && !email && !role) {
             res.status(400).json({
                 status: res.statusCode,
@@ -268,7 +267,6 @@ const searchUserByQuery = expressAsyncHandler(
         try {
             let query: any = {};
 
-            // Build the query based on the provided parameters
             if (name) {
                 const nameRegex = new RegExp(name.toString(), 'i');
                 query.name = { $regex: nameRegex };
@@ -280,10 +278,8 @@ const searchUserByQuery = expressAsyncHandler(
                 query.role = role;
             }
 
-            // Find users based on the constructed query
             const users = await User.find(query);
 
-            // Return the found users
             if (users.length > 0) {
                 const responseData = users.map((user) => ({
                     _id: user._id,
@@ -299,11 +295,21 @@ const searchUserByQuery = expressAsyncHandler(
                     data: responseData,
                 });
             } else {
-                res.status(404).json({ message: 'No users found' });
+                res.status(404).json({
+                    status: res.statusCode,
+                    message: 'No users found',
+                    meta: null,
+                    data: null,
+                });
             }
         } catch (error) {
             console.error('Error searching for users:', error);
-            res.status(500).json({ message: 'Internal server error' });
+            res.status(500).json({
+                status: res.statusCode,
+                message: 'Internal server error',
+                meta: null,
+                data: null,
+            });
         }
     },
 );
