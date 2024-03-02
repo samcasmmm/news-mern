@@ -16,7 +16,7 @@ router.get('/health', health);
 
 router.route('/profile').get(protect, profile).put(protect, updateProfile);
 
-router.get('/profile/:id', userById);
+router.get('/profile/:id', protect, userById);
 
 router.get('/search', protect, searchUserByQuery);
 
