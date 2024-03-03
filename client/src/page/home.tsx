@@ -1,9 +1,12 @@
+import { Editor } from '@/components';
 import React from 'react';
 
-type Props = {};
-
-const Home = (props: Props) => {
-  return <div>Home</div>;
+const Home = () => {
+  return (
+    <div className="flex h-screen w-screen items-center justify-center">
+      <Editor />
+    </div>
+  );
 };
 
 export default Home;
