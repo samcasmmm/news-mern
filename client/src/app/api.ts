@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({
   mode: 'cors',
 });
 
-export const apiSlice = createApi({
+export const api = createApi({
   baseQuery,
   tagTypes: [''],
   endpoints: () => ({}),
