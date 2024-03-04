@@ -16,6 +16,7 @@ const router = express.Router();
 router.get('/health', health);
 
 router.post('/signin', signIn);
+
 router.post('/signup', signUp);
 
 router.route('/profile').get(protect, profile).put(protect, updateProfile);
