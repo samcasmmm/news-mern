@@ -3,13 +3,11 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Button } from '..';
 
-const Editor: React.FC = () => {
-  // Add type annotation for functional component
-  const [value, setValue] = useState<string>(''); // Specify type for value state
-  const quillRef = useRef<ReactQuill>(null); // Specify type for quillRef
+const Editor = () => {
+  const [value, setValue] = useState('');
+  const quillRef = useRef();
 
-  const uploadImage = async (file: File): Promise<string> => {
-    // Specify return type as Promise<string>
+  const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
 
@@ -54,7 +52,7 @@ const Editor: React.FC = () => {
         const range = quill.getSelection(true);
         quill.insertEmbed(range?.index || 0, 'image', imageUrl);
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
     }
   };
