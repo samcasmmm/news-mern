@@ -1,84 +1,63 @@
-import { useState } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import ReactQuill from 'react-quill';
-
 import 'react-quill/dist/quill.snow.css';
-import { Button } from '@/components/';
-const Editor = () => {
-  const [value, setValue] = useState('');
+import { Button } from '..';
 
-  const modules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }, { font: [] }],
-        [{ size: [] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [
-          { list: 'ordered' },
-          { list: 'bullet' },
-          { indent: '-1' },
-          { indent: '+1' },
-        ],
-        ['link', 'image', 'video'],
-        ['clean'],
-        [{ align: [] }],
-      ],
-      handlers: {
-        // image: imageHandler,
-      },
-    },
-    clipboard: {
-      matchVisual: false,
-    },
-    imageResize: true,
+const Editor: React.FC = () => {
+  // Add type annotation for functional component
+  const [value, setValue] = useState<string>(''); // Specify type for value state
+  const quillRef = useRef<ReactQuill>(null); // Specify type for quillRef
+
+  const uploadImage = async (file: File): Promise<string> => {
+    // Specify return type as Promise<string>
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch(
+        'https://api.cloudinary.com/v1_1/esea5nri/image/upload',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+
+      const result = await response.json();
+      return result.secure_url;
+    } catch (error) {
+      console.error('Error:', error);
+      throw new Error('Upload failed');
+    }
   };
 
-  const uploadImage = (file: File) => {
-    return new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append('image', file);
+  const handleUploadImage = async () => {
+    try {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.click();
 
-      fetch('https://api.cloudinary.com/v1_1/demo/image/upload', {
-        method: 'POST',
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
-          resolve(result.data.url);
-        })
-        .catch((error) => {
-          reject('Upload failed');
-          console.error('Error:', error);
-        });
-    });
+      input.onchange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const target = event.target as HTMLInputElement;
+        const file = target.files?.[0];
+        if (!file) return;
+
+        const imageUrl = await uploadImage(file);
+
+        const quill = quillRef.current?.getEditor();
+        if (!quill) return;
+
+        const range = quill.getSelection(true);
+        quill.insertEmbed(range?.index || 0, 'image', imageUrl);
+      };
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
-  // const modules = {
-  //   // #3 Add "image" to the toolbar
-  //   toolbar: [['bold', 'italic', 'image']],
-  //   hanimageUploader: {
-  //     upload: (file: File) => {
-  //       return new Promise((resolve, reject) => {
-  //         const formData = new FormData();
-  //         formData.append('image', file);
-
-  //         fetch('https://api.cloudinary.com/v1_1/demo/image/upload', {
-  //           method: 'POST',
-  //           body: formData,
-  //         })
-  //           .then((response) => response.json())
-  //           .then((result) => {
-  //             console.log(result);
-  //             resolve(result.data.url);
-  //           })
-  //           .catch((error) => {
-  //             reject('Upload failed');
-  //             console.error('Error:', error);
-  //           });
-  //       });
-  //     },
-  //   },
-  // };
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
@@ -87,11 +66,28 @@ const Editor = () => {
           theme="snow"
           value={value}
           onChange={setValue}
-          modules={modules}
+          modules={{
+            toolbar: {
+              container: [
+                [{ header: [1, 2, 3, 4, 5, 6, false] }, { font: [] }],
+                [{ size: [] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [
+                  { list: 'ordered' },
+                  { list: 'bullet' },
+                  { indent: '-1' },
+                  { indent: '+1' },
+                ],
+                [{ align: [] }],
+                ['link', 'image', 'video'],
+                ['clean'],
+              ],
+            },
+          }}
+          ref={quillRef}
         />
       </div>
-      <Button onClick={() => console.log(value)}>Click</Button>
-      <p>{value}</p>
+      <Button onClick={handleUploadImage}>Upload Image</Button>
     </div>
   );
 };
