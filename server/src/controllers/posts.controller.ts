@@ -93,4 +93,47 @@ const getAllPosts = expressAsyncHandler(
     },
 );
 
+/**
+ * Get a post by ID.
+ * @route GET /api/posts/{id}
+ * @group Posts - Operations related to posts
+ * @param {string} id.path.required - The ID of the post.
+ * @returns {object} 200 - The post with the specified ID.
+ * @returns {object} 404 - Not found if the post with the specified ID does not exist.
+ * @returns {object} 500 - Internal server error.
+ */
+
+const getPostById = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        const postId: string = req.params.id;
+
+        try {
+            const post: IPosts | null = await Post.findById(postId);
+            if (post) {
+                res.status(200).json({
+                    status: res.statusCode,
+                    message: 'Post found',
+                    meta: null,
+                    data: post,
+                });
+            } else {
+                res.status(404).json({
+                    status: res.statusCode,
+                    message: 'Post not found',
+                    meta: null,
+                    data: null,
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching post by ID:', error);
+            res.status(500).json({
+                status: 500,
+                message: 'Internal server error',
+                meta: null,
+                data: null,
+            });
+        }
+    },
+);
+
 export { health, createNewPost };
