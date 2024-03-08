@@ -136,4 +136,4 @@ const getPostById = expressAsyncHandler(
     },
 );
 
-export { health, createNewPost };
+export { health, createNewPost, getPostById, getAllPosts };

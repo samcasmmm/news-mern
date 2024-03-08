@@ -8,7 +8,7 @@ const Editor = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
-      <div className="my-4 w-3/6">
+      <div className=" my-4 w-3/6">
         <ReactQuill
           theme="snow"
           value={value}

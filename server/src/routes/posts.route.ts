@@ -1,10 +1,17 @@
 import express from 'express';
-import { health, createNewPost } from '@/controllers/posts.controller';
+import {
+    health,
+    createNewPost,
+    getAllPosts,
+    getPostById,
+} from '@/controllers/posts.controller';
 
 const router = express.Router();
 
 router.get('/health', health);
 router.post('/create', createNewPost);
+router.get('/', getAllPosts);
+router.get('/:id', getPostById);
 router.post('/');
 router.put('/');
 router.delete('/');
