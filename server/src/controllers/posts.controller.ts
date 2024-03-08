@@ -63,4 +63,34 @@ const createNewPost = expressAsyncHandler(
     },
 );
 
+/**
+ * Get all posts.
+ * @route GET /api/posts
+ * @group Posts - Operations related to posts
+ * @returns {object} 200 - An array of posts.
+ * @returns {object} 500 - Internal server error.
+ */
+
+const getAllPosts = expressAsyncHandler(
+    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const posts: IPosts[] = await Post.find();
+            res.status(200).json({
+                status: res.statusCode,
+                message: 'Posts fetched successfully',
+                meta: null,
+                data: posts,
+            });
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            res.status(500).json({
+                status: 500,
+                message: 'Internal server error',
+                meta: null,
+                data: null,
+            });
+        }
+    },
+);
+
 export { health, createNewPost };
