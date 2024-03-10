@@ -5,11 +5,12 @@ import {
     getAllPosts,
     getPostById,
 } from '@/controllers/posts.controller';
+import { protect, isAdmin } from '@/middlewares/auth.middleware';
 
 const router = express.Router();
 
 router.get('/health', health);
-router.post('/create', createNewPost);
+router.post('/create', protect, createNewPost);
 router.get('/', getAllPosts);
 router.get('/:id', getPostById);
 router.post('/');

@@ -75,12 +75,21 @@ const getAllPosts = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             const posts: IPosts[] = await Post.find();
-            res.status(200).json({
-                status: res.statusCode,
-                message: 'Posts fetched successfully',
-                meta: null,
-                data: posts,
-            });
+            if (posts.length === 0) {
+                res.status(404).json({
+                    status: 404,
+                    message: 'No posts found',
+                    meta: null,
+                    data: null,
+                });
+            } else {
+                res.status(200).json({
+                    status: res.statusCode,
+                    message: 'Posts fetched successfully',
+                    meta: null,
+                    data: posts,
+                });
+            }
         } catch (error) {
             console.error('Error fetching posts:', error);
             res.status(500).json({
