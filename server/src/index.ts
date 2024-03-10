@@ -17,6 +17,7 @@ import { errorHandler, notFound } from '@/middlewares/error.middleware';
 import { pathBuilder } from './utils/helpers';
 
 import usersRoute from '@/routes/users.route';
+import postsRoute from '@/routes/posts.route';
 import httpLogger from './middlewares/logger.middleware';
 
 // Initialize App
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(pathBuilder('/users'), usersRoute);
+app.use(pathBuilder('/posts'), postsRoute);
 
 // Middlewares
 
