@@ -143,7 +143,12 @@ const getPostById = expressAsyncHandler(
                         _id: post._id,
                         title: post.title,
                         thumbnail: post.thumbnail,
-                        author: author,
+                        author: {
+                            id: author?._id,
+                            name: author?.name,
+                            email: author?.email,
+                            role: author?.role,
+                        },
                         content: post.content,
                     },
                 });
