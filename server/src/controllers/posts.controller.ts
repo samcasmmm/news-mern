@@ -2,6 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Post, { IPosts } from '@/models/posts.model';
 import generateToken from '@/utils/generateToken';
+import { IUser } from '@/models/users.model';
+
+interface UpdateReq extends Request {
+    user?: IUser;
+}
 
 /**
  * Check the health of the user route.
@@ -31,8 +36,12 @@ const health = expressAsyncHandler(
  * @returns {Error} 500 - Internal server error.
  */
 const createNewPost = expressAsyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-        const { content } = req.body;
+    async (
+        req: UpdateReq,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> => {
+        const { title, thumbnail, author, content } = req.body;
 
         if (!content) {
             res.status(400).json({
@@ -44,7 +53,13 @@ const createNewPost = expressAsyncHandler(
         }
 
         try {
-            const post: IPosts = await Post.create({ content });
+            const author = req.user?.id;
+            const post: IPosts = await Post.create({
+                title,
+                thumbnail,
+                author,
+                content,
+            });
             res.status(201).json({
                 status: res.statusCode,
                 message: 'Post created successfully',
