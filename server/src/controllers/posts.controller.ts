@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Post, { IPosts } from '@/models/posts.model';
 import generateToken from '@/utils/generateToken';
-import { IUser } from '@/models/users.model';
+import User, { IUser } from '@/models/users.model';
 
 interface UpdateReq extends Request {
     user?: IUser;
@@ -133,12 +133,19 @@ const getPostById = expressAsyncHandler(
 
         try {
             const post: IPosts | null = await Post.findById(postId);
+            const author = await User.findById(post?.author);
             if (post) {
                 res.status(200).json({
                     status: res.statusCode,
                     message: 'Post found',
                     meta: null,
-                    data: post,
+                    data: {
+                        _id: post._id,
+                        title: post.title,
+                        thumbnail: post.thumbnail,
+                        author: author,
+                        content: post.content,
+                    },
                 });
             } else {
                 res.status(404).json({

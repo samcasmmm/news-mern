@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/health', health);
 router.post('/create', protect, createNewPost);
 router.get('/', getAllPosts);
-router.get('/:id', getPostById);
+router.get('/:id', protect, getPostById);
 router.post('/');
 router.put('/');
 router.delete('/');
