@@ -39,18 +39,6 @@ const HttpMessages = {
     [HttpStatus.BAD_GATEWAY]: 'Bad Gateway',
     [HttpStatus.SERVICE_UNAVAILABLE]: 'Service Unavailable',
 };
-const throwHttpException = Object.keys(HttpStatus).reduce(
-    (acc, key) => {
-        acc[key] = (message?: string) => {
-            const statusCode = HttpStatus[key];
-            const errorMessage =
-                message || HttpMessages[statusCode] || 'Unknown Error';
-            httpException(statusCode, errorMessage || 'Unknown Error');
-        };
-        return acc;
-    },
-    {} as { [key: string]: (message?: string) => void },
-);
 
 interface ErrorResponse {
     statusCode: number;
@@ -58,6 +46,7 @@ interface ErrorResponse {
 }
 
 const createErrorResponse = (
+    res: Response,
     statusCode: number,
     message?: string,
 ): ErrorResponse => {
@@ -68,24 +57,4 @@ const createErrorResponse = (
     };
 };
 
-const handleErrorMiddleware = (err: Error, res: Response) => {
-    if (err instanceof HttpException) {
-        // Handle HttpException specifically
-        res.status(err.statusCode).json(err.serialize());
-    } else {
-        // Handle other errors with default status code
-        console.error(err); // Log the error for debugging
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-            message: 'Internal Server Error',
-        });
-    }
-};
-
-export {
-    HttpException,
-    httpException,
-    HttpStatus,
-    throwHttpException,
-    createErrorResponse,
-    handleErrorMiddleware,
-};
+export { HttpException, httpException, HttpStatus, createErrorResponse };

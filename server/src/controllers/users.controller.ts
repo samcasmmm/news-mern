@@ -366,6 +366,7 @@ const getAllUsers = expressAsyncHandler(
                 .select('-password')
                 .skip((page - 1) * size)
                 .limit(Number(size));
+            console.log(users);
 
             res.status(200).json({
                 status: 'success',

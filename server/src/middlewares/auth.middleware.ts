@@ -81,9 +81,12 @@ const isAdmin = expressAsyncHandler(
                 ).select('-password');
                 if (user) {
                     req.user = user;
-                    // console.log(req.user);
+                    console.log(req.user);
                     if (req.user.role === 'admin') {
                         return next();
+                    } else {
+                        res.status(401);
+                        next({ message: 'Not Authorized' });
                     }
                 } else {
                     res.status(404).send({
