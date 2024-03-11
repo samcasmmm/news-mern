@@ -52,8 +52,6 @@ const throwHttpException = Object.keys(HttpStatus).reduce(
     {} as { [key: string]: (message?: string) => void },
 );
 
-// Additional Functionality
-
 interface ErrorResponse {
     statusCode: number;
     message: string;
