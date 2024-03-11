@@ -44,12 +44,8 @@ const createNewPost = expressAsyncHandler(
         const { title, thumbnail, author, content } = req.body;
 
         if (!content) {
-            res.status(400).json({
-                status: res.statusCode,
-                message: 'Content is required',
-                meta: null,
-                data: null,
-            });
+            res.status(400);
+            throw new Error('Content is required');
         }
 
         try {
