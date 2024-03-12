@@ -19,7 +19,7 @@ const httpException = (statusCode: number, message: string) => {
     throw new HttpException(statusCode, message);
 };
 
-const HttpStatus: { [key: string]: number } = {
+const HttpStatus = {
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
@@ -41,20 +41,13 @@ const HttpMessages = {
     [HttpStatus.SERVICE_UNAVAILABLE]: 'Service Unavailable',
 };
 
-interface ErrorResponse {
-    statusCode: number;
-    message: string;
+function throwError(res: Response, statusCode: number, message: string): void {
+    res.status(statusCode).json({
+        status: res.statusCode,
+        message: message,
+        meta: null,
+        data: null,
+    });
 }
 
-const createErrorResponse = (
-    res: Response,
-    statusCode: number,
-    message: string,
-) => {
-    res.status(statusCode);
-    return res.json({
-        status: res.status(statusCode),
-    });
-};
-
-export { HttpException, httpException, HttpStatus, createErrorResponse };
+export { HttpException, httpException, HttpStatus, throwError };
