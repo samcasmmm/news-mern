@@ -1,3 +1,4 @@
+import { json } from 'envalid';
 import { Response } from 'express';
 
 class HttpException extends Error {
@@ -48,13 +49,12 @@ interface ErrorResponse {
 const createErrorResponse = (
     res: Response,
     statusCode: number,
-    message?: string,
-): ErrorResponse => {
-    const exception = new HttpException(statusCode, message || 'Unknown Error');
-    return {
-        statusCode: exception.statusCode,
-        message: exception.message,
-    };
+    message: string,
+) => {
+    res.status(statusCode);
+    return res.json({
+        status: res.status(statusCode),
+    });
 };
 
 export { HttpException, httpException, HttpStatus, createErrorResponse };

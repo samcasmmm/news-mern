@@ -48,7 +48,8 @@ const createNewPost = expressAsyncHandler(
             // throwHttpException.BAD_REQUEST('Content is required');
             // throwHttpException['BAD_REQUEST']('Content is required');
             // createErrorResponse(HttpStatus.BAD_REQUEST, '...');
-            throw new Error('error');
+            // throw new Error('error');
+            createErrorResponse(res, 404, 'Content is required');
         }
 
         try {
