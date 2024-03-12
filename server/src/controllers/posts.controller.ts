@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import Post, { IPosts } from '@/models/posts.model';
 import generateToken from '@/utils/generateToken';
 import User, { IUser } from '@/models/users.model';
-import { HttpStatus, createErrorResponse } from '@/helpers/httpsException';
+import { HTTP, throwError } from '@/helpers/httpsException';
 
 interface UpdateReq extends Request {
     user?: IUser;
@@ -45,15 +45,7 @@ const createNewPost = expressAsyncHandler(
         const { title, thumbnail, author, content } = req.body;
 
         if (!content) {
-            // throwHttpException.BAD_REQUEST('Content is required');
-            // throwHttpException['BAD_REQUEST']('Content is required');
-            // createErrorResponse(HttpStatus.BAD_REQUEST, '...');
-            // throw new Error('error');
-            createErrorResponse(
-                res,
-                HttpStatus.BAD_REQUEST,
-                'Content is required',
-            );
+            throwError(res, HTTP.BAD_REQUEST, 'Content is required');
         }
 
         try {

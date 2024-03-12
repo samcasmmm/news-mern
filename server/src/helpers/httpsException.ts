@@ -19,7 +19,7 @@ const httpException = (statusCode: number, message: string) => {
     throw new HttpException(statusCode, message);
 };
 
-const HttpStatus = {
+const HTTP = {
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
@@ -31,14 +31,14 @@ const HttpStatus = {
 };
 
 const HttpMessages = {
-    [HttpStatus.BAD_REQUEST]: 'Bad Request',
-    [HttpStatus.UNAUTHORIZED]: 'Unauthorized',
-    [HttpStatus.FORBIDDEN]: 'Forbidden',
-    [HttpStatus.NOT_FOUND]: 'Not Found',
-    [HttpStatus.METHOD_NOT_ALLOWED]: 'Method Not Allowed',
-    [HttpStatus.INTERNAL_SERVER_ERROR]: 'Internal Server Error',
-    [HttpStatus.BAD_GATEWAY]: 'Bad Gateway',
-    [HttpStatus.SERVICE_UNAVAILABLE]: 'Service Unavailable',
+    [HTTP.BAD_REQUEST]: 'Bad Request',
+    [HTTP.UNAUTHORIZED]: 'Unauthorized',
+    [HTTP.FORBIDDEN]: 'Forbidden',
+    [HTTP.NOT_FOUND]: 'Not Found',
+    [HTTP.METHOD_NOT_ALLOWED]: 'Method Not Allowed',
+    [HTTP.INTERNAL_SERVER_ERROR]: 'Internal Server Error',
+    [HTTP.BAD_GATEWAY]: 'Bad Gateway',
+    [HTTP.SERVICE_UNAVAILABLE]: 'Service Unavailable',
 };
 
 function throwError(res: Response, statusCode: number, message: string): void {
@@ -50,4 +50,4 @@ function throwError(res: Response, statusCode: number, message: string): void {
     });
 }
 
-export { HttpException, httpException, HttpStatus, throwError };
+export { HttpException, httpException, HTTP, throwError };
