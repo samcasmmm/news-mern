@@ -63,13 +63,7 @@ const createNewPost = expressAsyncHandler(
                 data: post,
             });
         } catch (error) {
-            console.error('Error creating post:', error);
-            res.status(500).json({
-                status: 500,
-                message: 'Internal server error',
-                meta: null,
-                data: null,
-            });
+            throwError(res, HTTP.INTERNAL_SERVER_ERROR, 'Error creating post');
         }
     },
 );
@@ -93,6 +87,7 @@ const getAllPosts = expressAsyncHandler(
                     meta: null,
                     data: null,
                 });
+                throwError(res, HTTP.NOT_FOUND, 'No posts found');
             } else {
                 res.status(200).json({
                     status: res.statusCode,
@@ -102,13 +97,7 @@ const getAllPosts = expressAsyncHandler(
                 });
             }
         } catch (error) {
-            console.error('Error fetching posts:', error);
-            res.status(500).json({
-                status: 500,
-                message: 'Internal server error',
-                meta: null,
-                data: null,
-            });
+            throwError(res, HTTP.INTERNAL_SERVER_ERROR, 'Error fetching posts');
         }
     },
 );
@@ -149,12 +138,7 @@ const getPostById = expressAsyncHandler(
                     },
                 });
             } else {
-                res.status(404).json({
-                    status: res.statusCode,
-                    message: 'Post not found',
-                    meta: null,
-                    data: null,
-                });
+                throwError(res, HTTP.NOT_FOUND, 'Post not found');
             }
         } catch (error) {
             console.error('Error fetching post by ID:', error);
