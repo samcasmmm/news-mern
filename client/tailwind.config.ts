@@ -22,9 +22,9 @@ module.exports = {
       colors: {
         // Custom
         dark: '#121212',
-        'dark-box': '#1E1E1E',
-        'dark-box2': '#2d2d2d',
-        'dark-box3': '#202020',
+        dark1e: '#1E1E1E',
+        dark2d: '#2d2d2d',
+        dark20: '#202020',
         // Predefined
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
