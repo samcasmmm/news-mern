@@ -1,10 +1,7 @@
-import { Editor } from '@/components';
-import React from 'react';
-
 const Home = () => {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <Editor />
+    <div className="flex h-screen w-full items-center justify-center">
+      Main Content
     </div>
   );
 };
