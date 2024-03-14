@@ -1,4 +1,4 @@
-import { Bell, Search } from '@/components/common/Icons';
+import { Bell, Search, Pen } from '@/components/common/Icons';
 import AvatarWrapper from './common/Avatar';
 import IconWrapper from './common/IconWrapper';
 const Navbar = () => {
@@ -9,6 +9,7 @@ const Navbar = () => {
           <img src="/logo_dark.png" alt="logo" className="w-32" />
         </div>
         <div className="flex items-center justify-center space-x-2">
+          <IconWrapper icon={Pen} />
           <IconWrapper icon={Search} />
           <IconWrapper icon={Bell} />
           <AvatarWrapper
