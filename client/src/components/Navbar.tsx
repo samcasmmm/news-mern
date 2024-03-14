@@ -1,6 +1,7 @@
 import { Bell, Search, Pen } from '@/components/common/Icons';
-import AvatarWrapper from './common/Avatar';
-import IconWrapper from './common/IconWrapper';
+import AvatarWrapper from '@/components/common/Avatar';
+import IconWrapper from '@/components/common/IconWrapper';
+import IsLoggedInWrapper from '@/components/common/IsLoggedInWrapper';
 const Navbar = () => {
   return (
     <div className="border-b border-b-gray-300 bg-white p-2">
@@ -9,7 +10,9 @@ const Navbar = () => {
           <img src="/logo_dark.png" alt="logo" className="w-32" />
         </div>
         <div className="flex items-center justify-center space-x-2">
-          <IconWrapper icon={Pen} />
+          <IsLoggedInWrapper>
+            <IconWrapper icon={Pen} />
+          </IsLoggedInWrapper>
           <IconWrapper icon={Search} />
           <IconWrapper icon={Bell} />
           <AvatarWrapper
