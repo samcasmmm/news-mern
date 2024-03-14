@@ -5,7 +5,7 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 const isLoggedInFn = (state: AuthState) => {
