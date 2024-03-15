@@ -329,6 +329,18 @@ interface QueryParams {
     size?: number;
 }
 
+/**
+ * Fetch all users based on the specified role.
+ * @route GET /api/users
+ * @group Users - Operations related to users
+ * @param {string} [role.query] - The role of the users to fetch. Possible values are 'all', 'freemium', 'premium', 'platinum', or 'editor'.
+ * @param {number} [page.query=1] - The page number for pagination. Default is 1.
+ * @param {number} [size.query=10] - The number of users to fetch per page. Default is 10.
+ * @returns {object} 200 - An object containing information about the fetched users.
+ * @returns {object} 400 - Bad request if an invalid role or page number is provided.
+ * @returns {object} 500 - Internal server error if an error occurs while fetching users.
+ */
+
 const getAllUsers = expressAsyncHandler(
     async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         const { role, page = 1, size = 10 }: QueryParams = req.query;
