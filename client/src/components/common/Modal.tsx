@@ -15,9 +15,11 @@ interface Props {
   title: string;
   children: ReactNode;
   description?: string;
+  onClick?: () => void;
+  onCancel?: () => void;
 }
 
-const Modal = ({ title, children, description }: Props) => {
+const Modal = ({ title, children, description, onCancel, onClick }: Props) => {
   const { modal } = useAppSelector((state) => state.UIState);
   const dispatch = useAppDispatch();
   const closeModal = () => {
@@ -30,17 +32,23 @@ const Modal = ({ title, children, description }: Props) => {
       modal
       defaultOpen={modal.toggle}
     >
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="rounded-lg">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <>{children}</>
         <DialogFooter>
-          <Button type="button" variant={'ghost'} onClick={closeModal}>
+          <Button
+            type="button"
+            variant={'ghost'}
+            onClick={onCancel ? onCancel : closeModal}
+          >
             Close
           </Button>
-          <Button type="submit">Save changes</Button>
+          <Button type="button" onClick={onClick}>
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
