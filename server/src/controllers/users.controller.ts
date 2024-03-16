@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import User, { IUser } from '@/models/users.model';
 import generateToken from '@/utils/generateToken';
+import { HTTP, throwError } from '@/helpers/httpsException';
 
 /**
  * Check the health of the user route.
@@ -51,8 +52,9 @@ const signIn = expressAsyncHandler(
                 },
             });
         } else {
-            res.status(401);
-            throw new Error('Invalid Email or Password');
+            // res.status(400);
+            // throw new Error('Invalid Email or Password');
+            throwError(res, HTTP.BAD_REQUEST, 'Invalid Email or Password');
         }
     },
 );
