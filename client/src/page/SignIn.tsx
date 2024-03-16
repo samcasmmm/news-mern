@@ -1,10 +1,11 @@
 import { Button } from '@/components';
+import { useState } from 'react';
 
 const SignIn = () => {
-  const userData = {
+  const [inputData, setInputData] = useState({
     email: 'admin@gmail.com',
     password: 'passwdd',
-  };
+  });
 
   const handleSignUp = async () => {
     try {
