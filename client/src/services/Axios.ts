@@ -1,28 +1,23 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const client = axios.create({
-  baseURL: '',
+  baseURL: '', // Provide your base URL here
 });
 
-export const request = async (options) => {
-  let token;
-  const state = store.getState();
-  const userState = state?.user?.currentUser;
-  if (userState === null) {
-    token = '';
-  } else {
-    const { accessToken } = userState;
-    token = accessToken;
+export const request = async <T>(
+  options: AxiosRequestConfig,
+  token: string | undefined = '',
+): Promise<T> => {
+  // Set the authorization header if token is provided
+  if (token !== '') {
+    client.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
-  // Set the authorization header
-  token !== '' &&
-    (client.defaults.headers.common.Authorization = `Bearer ${token}`);
 
-  const onSuccess = (response) => {
+  const onSuccess = (response: AxiosResponse<T>) => {
     return response?.data?.data;
   };
 
-  const onError = (error) => {
+  const onError = (error: any) => {
     return Promise.reject(error.response?.data);
   };
 
