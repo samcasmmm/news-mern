@@ -4,12 +4,12 @@ import { useState } from 'react';
 const SignIn = () => {
   const [inputData, setInputData] = useState({
     email: 'admin@gmail.com',
-    password: 'passwdd',
+    password: 'passwd',
   });
 
   const handleSignUp = async () => {
     try {
-      // ...
+      //
     } catch (error) {
       console.error('Sign-up failed:', error);
     }
