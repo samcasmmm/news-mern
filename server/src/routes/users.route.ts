@@ -25,6 +25,6 @@ router.get('/profile/:id', protect, userById);
 
 router.get('/search', protect, searchUserByQuery);
 
-router.get('/', isAdmin, getAllUsers);
+router.get('/', getAllUsers);
 
 export default router;

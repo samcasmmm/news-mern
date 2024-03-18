@@ -1,4 +1,5 @@
 import { Button } from '@/components';
+import { user } from '@/services/Axios';
 import { useState } from 'react';
 
 const SignIn = () => {
@@ -6,6 +7,7 @@ const SignIn = () => {
     email: 'admin@gmail.com',
     password: 'passwd',
   });
+  console.log(user);
 
   const handleSignUp = async () => {
     try {
