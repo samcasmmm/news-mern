@@ -24,7 +24,7 @@ const health = expressAsyncHandler(
 
 /**
  * Authenticate a user and generate a JWT token.
- * @route POST /api/user/signIn
+ * @route POST /api/users/signIn
  * @group User - Operations about user
  * @param {string} email.body.required - User's email
  * @param {string} password.body.required - User's password
