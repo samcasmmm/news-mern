@@ -10,14 +10,14 @@ const Transition = (Child: React.FC) => {
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.div
         className="fixed left-0 top-0 h-screen w-full origin-top bg-[#0f0f0f]"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: [0.22, 0.5, 0.36, 1] }}
       />
     </>
   );
