@@ -25,6 +25,7 @@ module.exports = {
         dark1e: '#1E1E1E',
         dark2d: '#2d2d2d',
         dark20: '#202020',
+        greenEm:'#1EB582',
         // Predefined
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
