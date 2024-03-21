@@ -4,10 +4,10 @@ import { handleSignIn } from '@/services/users.services';
 import { Input, Button } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
 
-const SignIn = () => {
+const SignUp = () => {
   const [inputData, setInputData] = useState({
     name: '',
-    email: 'admin',
+    email: '',
     password: 'passwd',
   });
   const navigate = useNavigate();
@@ -56,6 +56,14 @@ const SignIn = () => {
           </div>
           <Input
             type="text"
+            placeholder="name"
+            name="name"
+            className="rounded-md p-2 ring-offset-emerald-400 focus-visible:ring-1 focus-visible:ring-emerald-400 focus-visible:ring-offset-1 font-semibold"
+            value={inputData.name}
+            onChange={handleInputChange}
+          />
+          <Input
+            type="text"
             placeholder="email"
             name="email"
             className="rounded-md p-2 ring-offset-emerald-400 focus-visible:ring-1 focus-visible:ring-emerald-400 focus-visible:ring-offset-1 font-semibold"
@@ -74,12 +82,12 @@ const SignIn = () => {
             onClick={handleSignInClick}
             className="w-full rounded-md bg-greenEm hover:bg-emerald-600 font-semibold"
           >
-            SignIn
+            SignUp
           </Button>
           <p className="">
             Don't have account ?{' '}
             <strong className="cursor-pointer text-emerald-500 duration-200 ease-linear hover:text-emerald-700" >
-             <Link to={'/signUp'}>SignUp</Link>
+             <Link to={'/signIn'}>SignIn</Link>
             </strong>
           </p>
         </div>
@@ -89,4 +97,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

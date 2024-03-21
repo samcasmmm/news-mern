@@ -23,6 +23,12 @@ const Home = () => {
         <Button>
           <Link to="/contact">Contact</Link>
         </Button>
+        <Button>
+          <Link to="/signIn">signIn</Link>
+        </Button>
+        <Button>
+          <Link to="/signUp">signUp</Link>
+        </Button>
       </div>
     </div>
   );
