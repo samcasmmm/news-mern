@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { handleSignIn } from '@/services/users.services';
+import { handleSignUp } from '@/services/users.services';
 import { Input, Button } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const SignUp = () => {
   });
   const navigate = useNavigate();
 
-  const signInMutation = useMutation({ mutationFn: handleSignIn });
+  const signInMutation = useMutation({ mutationFn: handleSignUp });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,6 +31,15 @@ const SignUp = () => {
     });
   };
 
+  const FormHeading = () => (
+    <div className="mb-10 flex flex-col items-center justify-center gap-2">
+            <p className="text-2xl font-bold text-emerald-500">
+              Signin to Your Account
+            </p>
+            <div className="h-1 w-12 rounded-full bg-emerald-500" />
+          </div>
+  )
+
   const Footer = () => (
     <div className="flex items-center justify-center gap-2 bg-white p-2">
       <p className="p-2 px-4 text-sm duration-150 hover:font-bold">
@@ -48,12 +57,7 @@ const SignUp = () => {
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-screen w-full flex-col items-center justify-center bg-white">
         <div className="flex h-screen w-5/6 flex-col items-center justify-center gap-4 bg-white md:w-3/6 lg:w-2/12">
-          <div className="mb-10 flex flex-col items-center justify-center gap-2">
-            <p className="text-2xl font-bold text-emerald-500">
-              Signin to Your Account
-            </p>
-            <div className="h-1 w-12 rounded-full bg-emerald-500" />
-          </div>
+          
           <Input
             type="text"
             placeholder="name"

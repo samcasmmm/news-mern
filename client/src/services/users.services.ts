@@ -1,5 +1,5 @@
 import { AxiosWithAuth, AxiosWithoutAuth } from '@/services/Axios';
-import { SIGN_IN } from './endpoints';
+import { SIGN_IN, SIGN_UP } from './endpoints';
 // @GET
 // @POST
 
@@ -23,7 +23,7 @@ export const handleSignIn = async (body: SignInProps) => {
 };
 export const handleSignUp = async (body: SignUpProps) => {
   return (
-    await AxiosWithAuth.post(SIGN_IN, {
+    await AxiosWithAuth.post(SIGN_UP, {
       name:body.name,
       email: body.email,
       password: body.password,
