@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   ...rest
 }) => {
   return isAuthenticated ? (
-    <Navigate to="/dashboard" replace />
+    <Navigate to="/signIn" />
   ) : (
     <Route {...rest} element={element} />
   );

@@ -21,7 +21,7 @@ const coreRoutes = [
     path: '/contact',
     title: 'Contact',
     component: Contact,
-    routeProtection: false,
+    routeProtection: true,
   },
 ];
 

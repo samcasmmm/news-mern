@@ -10,7 +10,9 @@ import ProtectedRoute from './routes/ProtectedRoute';
 
 const App = () => {
   const location = useLocation();
-  console.log(location);
+
+  const isAuthenticated = true;
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />
@@ -27,12 +29,8 @@ const App = () => {
                   element={
                     routeProtection ? (
                       <ProtectedRoute
-                        element={
-                          <Suspense fallback={<p>Loading..</p>}>
-                            <Component />
-                          </Suspense>
-                        }
-                        isAuthenticated={false}
+                        element={<Component />}
+                        isAuthenticated={isAuthenticated}
                       />
                     ) : (
                       <Suspense fallback={<p>Loading..</p>}>
