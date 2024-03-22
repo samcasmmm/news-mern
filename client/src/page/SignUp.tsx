@@ -57,7 +57,7 @@ const SignUp = () => {
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-screen w-full flex-col items-center justify-center bg-white">
         <div className="flex h-screen w-5/6 flex-col items-center justify-center gap-4 bg-white md:w-3/6 lg:w-2/12">
-        <FormHeading/>
+          <FormHeading />
           <Input
             type="text"
             placeholder="name"

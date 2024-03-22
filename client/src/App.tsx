@@ -9,7 +9,7 @@ import SignUp from './page/SignUp';
 
 const App = () => {
   const location = useLocation();
-  console.log(location)
+  console.log(location);
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />
