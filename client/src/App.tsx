@@ -6,6 +6,7 @@ import routes from '@/routes';
 import SignIn from '@/page/SignIn';
 import { AnimatePresence } from 'framer-motion';
 import SignUp from './page/SignUp';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 const App = () => {
   const location = useLocation();
@@ -18,17 +19,30 @@ const App = () => {
           <Route path="signIn" element={<SignIn />} />
           <Route path="signUp" element={<SignUp />} />
           <Route element={<DefaultLayout />}>
-            {routes.map(({ path, component: Component }, index) => (
-              <Route
-                key={index}
-                path={path}
-                element={
-                  <Suspense fallback={<p>Loading..</p>}>
-                    <Component />
-                  </Suspense>
-                }
-              />
-            ))}
+            {routes.map(
+              ({ path, component: Component, routeProtection }, index) => (
+                <Route
+                  key={index}
+                  path={path}
+                  element={
+                    routeProtection ? (
+                      <ProtectedRoute
+                        element={
+                          <Suspense fallback={<p>Loading..</p>}>
+                            <Component />
+                          </Suspense>
+                        }
+                        isAuthenticated={false}
+                      />
+                    ) : (
+                      <Suspense fallback={<p>Loading..</p>}>
+                        <Component />
+                      </Suspense>
+                    )
+                  }
+                />
+              ),
+            )}
           </Route>
         </Routes>
       </AnimatePresence>
