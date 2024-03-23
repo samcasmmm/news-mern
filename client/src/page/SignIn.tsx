@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { handleSignIn } from '@/services/users.services';
 import { Input, Button } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SignIn = () => {
   const [inputData, setInputData] = useState({
@@ -23,12 +24,17 @@ const SignIn = () => {
   };
 
   const handleSignInClick = async () => {
-    await signInMutation.mutateAsync(inputData).then((res) => {
-      console.log(res);
-      if (signInMutation.isSuccess) {
-        navigate('/');
-      }
-    });
+    await signInMutation
+      .mutateAsync(inputData)
+      .then((res) => {
+        console.log(res);
+        if (signInMutation.isSuccess) {
+          navigate('/');
+        }
+      })
+      .catch((res) => {
+        toast.error(res.data.message);
+      });
   };
 
   const Footer = () => (
