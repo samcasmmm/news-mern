@@ -4,7 +4,6 @@ import { handleSignUp } from '@/services/users.services';
 import { Input, Button } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { error } from 'console';
 
 const SignUp = () => {
   const [inputData, setInputData] = useState({
