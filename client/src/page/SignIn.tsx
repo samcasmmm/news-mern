@@ -33,12 +33,12 @@ const SignIn = () => {
 
   const Footer = () => (
     <div className="flex items-center justify-center gap-2 bg-white p-2">
-      <p className="p-2 px-4 text-sm duration-150 hover:font-bold">
+      <p className="p-2 px-4 text-sm font-bold text-black/50 duration-150 hover:text-black">
         <Link to="policy">Privacy Policy</Link>
       </p>
       <div className="h-1 w-1 rounded-full bg-black/80" />
 
-      <p className=" p-2 px-4 text-sm duration-150 hover:font-bold">
+      <p className=" p-2 px-4 text-sm font-bold text-black/50 duration-150 hover:text-black">
         <Link to="policy">Terms & Condition</Link>
       </p>
     </div>
@@ -58,7 +58,7 @@ const SignIn = () => {
             type="text"
             placeholder="email"
             name="email"
-            className="rounded-md p-2 ring-offset-emerald-400 focus-visible:ring-1 focus-visible:ring-emerald-400 focus-visible:ring-offset-1 font-semibold"
+            className="rounded-md p-2 font-semibold ring-offset-emerald-400 focus-visible:ring-1 focus-visible:ring-emerald-400 focus-visible:ring-offset-1"
             value={inputData.email}
             onChange={handleInputChange}
           />
@@ -66,20 +66,20 @@ const SignIn = () => {
             type="password"
             placeholder="password"
             name="password"
-            className="rounded-md p-2 ring-offset-emerald-400 focus-visible:ring-1 focus-visible:ring-emerald-400 focus-visible:ring-offset-1 font-semibold"
+            className="rounded-md p-2 font-semibold ring-offset-emerald-400 focus-visible:ring-1 focus-visible:ring-emerald-400 focus-visible:ring-offset-1"
             value={inputData.password}
             onChange={handleInputChange}
           />
           <Button
             onClick={handleSignInClick}
-            className="w-full rounded-md bg-greenEm hover:bg-emerald-600 font-semibold"
+            className="w-full rounded-md bg-greenEm font-semibold hover:bg-emerald-600"
           >
             SignIn
           </Button>
           <p className="">
             Don't have account ?{' '}
-            <strong className="cursor-pointer text-emerald-500 duration-200 ease-linear hover:text-emerald-700" >
-             <Link to={'/signUp'}>SignUp</Link>
+            <strong className="cursor-pointer text-emerald-500 duration-200 ease-linear hover:text-emerald-700">
+              <Link to={'/signUp'}>SignUp</Link>
             </strong>
           </p>
         </div>

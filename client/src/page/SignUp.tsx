@@ -42,12 +42,12 @@ const SignUp = () => {
 
   const Footer = () => (
     <div className="flex items-center justify-center gap-2 bg-white p-2">
-      <p className="p-2 px-4 text-sm duration-150 hover:font-bold">
+      <p className="p-2 px-4 text-sm font-bold text-black/50 duration-150 hover:text-black">
         <Link to="policy">Privacy Policy</Link>
       </p>
       <div className="h-1 w-1 rounded-full bg-black/80" />
 
-      <p className=" p-2 px-4 text-sm duration-150 hover:font-bold">
+      <p className=" p-2 px-4 text-sm font-bold text-black/50 duration-150 hover:text-black">
         <Link to="policy">Terms & Condition</Link>
       </p>
     </div>
