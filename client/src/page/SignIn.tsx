@@ -4,8 +4,9 @@ import { handleSignIn } from '@/services/users.services';
 import { Input, Button } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useAppDispatch } from '@/hooks/useAppState';
-import { isAuth } from '@/app/features/Auth.slice';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppState';
+import { isAuth, setUserDetails } from '@/app/features/Auth.slice';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 const SignIn = () => {
   const [inputData, setInputData] = useState({
@@ -14,6 +15,8 @@ const SignIn = () => {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { isAuthenticated, user } = useAppSelector((state) => state.Auth);
+  const [saveUser, setSaveUser] = useLocalStorage('user', null);
 
   const signInMutation = useMutation({ mutationFn: handleSignIn });
 
@@ -28,10 +31,21 @@ const SignIn = () => {
   const handleSignInClick = async () => {
     await signInMutation
       .mutateAsync(inputData)
-      .then((res) => {
+      .then(async (res) => {
         console.log(res);
-        dispatch(isAuth());
         toast.success(res.message);
+        setSaveUser(res.data);
+        dispatch(isAuth());
+        dispatch(
+          setUserDetails({
+            _id: res.data._id,
+            name: res.data.name,
+            email: res.data.email,
+            role: res.data.role,
+            token: res.data.token,
+          }),
+        );
+        console.log(user.email);
         navigate('/');
       })
       .catch((err) => {

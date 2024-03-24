@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import DefaultLayout from '@/layout/DefaultLayout';
@@ -11,7 +11,12 @@ import { useAppSelector } from '@/hooks/useAppState';
 
 const App = () => {
   const location = useLocation();
+
   const { isAuthenticated } = useAppSelector((state) => state.Auth);
+
+  useEffect(() => {
+    console.log('isAuthenticated', isAuthenticated);
+  });
 
   return (
     <>
