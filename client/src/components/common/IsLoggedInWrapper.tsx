@@ -6,8 +6,8 @@ interface Props {
 }
 
 const IsLoggedInWrapper = ({ children }: Props) => {
-  const { isLoggedIn } = useAppSelector((state) => state.Auth);
-  return isLoggedIn ? <>{children}</> : null;
+  const { isAuthenticated } = useAppSelector((state) => state.Auth);
+  return isAuthenticated ? <> {children}</> : null;
 };
 
 export default IsLoggedInWrapper;

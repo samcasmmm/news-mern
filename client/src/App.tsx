@@ -5,13 +5,13 @@ import DefaultLayout from '@/layout/DefaultLayout';
 import routes from '@/routes';
 import SignIn from '@/page/SignIn';
 import { AnimatePresence } from 'framer-motion';
-import SignUp from './page/SignUp';
-import ProtectedRoute from './routes/ProtectedRoute';
+import SignUp from '@/page/SignUp';
+import ProtectedRoute from '@/routes/ProtectedRoute';
+import { useAppSelector } from '@/hooks/useAppState';
 
 const App = () => {
   const location = useLocation();
-
-  const isAuthenticated = true;
+  const { isAuthenticated } = useAppSelector((state) => state.Auth);
 
   return (
     <>

@@ -1,24 +1,29 @@
+import { accessLocalStore } from '@/libs/helpers';
+import { UserDetailsFromLocal } from '@/types/users';
 import { createSlice } from '@reduxjs/toolkit';
 
 type AuthState = {
-  isLoggedIn: boolean;
+  isAuthenticated: boolean;
 };
+
+export const user: UserDetailsFromLocal = accessLocalStore('user');
 
 const initialState: AuthState = {
-  isLoggedIn: false,
+  isAuthenticated: user ? true : false,
 };
+console.log(initialState.isAuthenticated);
 
-const isLoggedInFn = (state: AuthState) => {
-  state.isLoggedIn = true;
+const isAuthfn = (state: AuthState) => {
+  state.isAuthenticated = true;
 };
 
 const AuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    isLoggedIn: isLoggedInFn,
+    isAuth: isAuthfn,
   },
 });
 
-export const { isLoggedIn } = AuthSlice.actions;
+export const { isAuth } = AuthSlice.actions;
 export default AuthSlice.reducer;
