@@ -24,7 +24,7 @@ export const handleSignIn = async (body: SignInProps) => {
 export const handleSignUp = async (body: SignUpProps) => {
   return (
     await AxiosWithAuth.post(SIGN_UP, {
-      name:body.name,
+      name: body.name,
       email: body.email,
       password: body.password,
     })

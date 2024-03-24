@@ -2,16 +2,17 @@ import { accessLocalStore } from '@/libs/helpers';
 import { UserDetailsFromLocal } from '@/types/users';
 import { createSlice } from '@reduxjs/toolkit';
 
-type AuthState = {
-  isAuthenticated: boolean;
-};
-
 export const user: UserDetailsFromLocal = accessLocalStore('user');
 
-const initialState: AuthState = {
-  isAuthenticated: user ? true : false,
+type AuthState = {
+  isAuthenticated: boolean;
+  user: UserDetailsFromLocal;
 };
-console.log(initialState.isAuthenticated);
+
+const initialState: AuthState = {
+  isAuthenticated: user._id !== null ? true : false,
+  user: user,
+};
 
 const isAuthfn = (state: AuthState) => {
   state.isAuthenticated = true;

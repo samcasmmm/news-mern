@@ -4,14 +4,16 @@ import { handleSignIn } from '@/services/users.services';
 import { Input, Button } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useAppDispatch } from '@/hooks/useAppState';
+import { isAuth } from '@/app/features/Auth.slice';
 
 const SignIn = () => {
   const [inputData, setInputData] = useState({
-    name: '',
-    email: 'admin',
+    email: 'admin@gmail.com',
     password: 'passwd',
   });
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const signInMutation = useMutation({ mutationFn: handleSignIn });
 
@@ -28,12 +30,13 @@ const SignIn = () => {
       .mutateAsync(inputData)
       .then((res) => {
         console.log(res);
-        if (signInMutation.isSuccess) {
-          navigate('/');
-        }
+        dispatch(isAuth());
+        toast.success(res.message);
+        navigate('/');
       })
-      .catch((res) => {
-        toast.error(res.data.message);
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.message);
       });
   };
 
