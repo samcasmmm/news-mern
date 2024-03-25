@@ -6,7 +6,7 @@ const DefaultLayout = () => {
   return (
     <main className="h-full w-full ">
       <Navbar />
-      <div className="container">
+      <div className="lg:container">
         <Outlet />
       </div>
     </main>
