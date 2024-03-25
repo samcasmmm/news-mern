@@ -12,7 +12,7 @@ const AxiosWithAuth: AxiosInstance = axios.create({
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + user.token,
+    Authorization: 'Bearer ' + user?.token,
   },
   signal: signal,
 });

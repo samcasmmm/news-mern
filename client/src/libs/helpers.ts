@@ -19,3 +19,13 @@ export const accessLocalStore = (key: string): UserDetailsFromLocal => {
     token: null,
   };
 };
+
+export function removeLocalByKey(key: string) {
+  window.localStorage.removeItem(key);
+  console.log(`Remove Local Storage Related to ${key}`);
+}
+export function clearLocalStorage() {
+  window.localStorage.clear();
+  window.location.reload();
+  console.log('Cleared Local Storage');
+}

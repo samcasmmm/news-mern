@@ -45,7 +45,7 @@ const SignIn = () => {
             token: res.data.token,
           }),
         );
-        console.log(user.email);
+        console.log(user);
         navigate('/');
       })
       .catch((err) => {
