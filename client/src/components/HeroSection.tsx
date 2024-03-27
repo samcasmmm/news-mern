@@ -7,7 +7,7 @@ const CategoryName: React.FC<{ name: string }> = ({ name }) => (
 );
 
 const HeroSection = () => (
-  <div className="my-2 flex w-full flex-col items-center justify-center  md:flex-row">
+  <div className=" flex w-full flex-col items-center justify-center  md:flex-row">
     <div className="group flex h-full w-full flex-col items-start justify-start gap-4 p-4">
       <CategoryName name="science" />
       <p className="text-3xl font-bold transition-all duration-300 group-[]:hover:text-red-400 md:text-[2.5rem]">
