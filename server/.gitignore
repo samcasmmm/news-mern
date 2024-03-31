@@ -4,8 +4,8 @@ npm-debug.log
 *.env
 
 # Express.js
-# dist/
-# /dist
+dist/
+/dist
 
 # React
 /build
