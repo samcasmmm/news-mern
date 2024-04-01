@@ -10,14 +10,14 @@ dotenv.config();
 import 'module-alias/register';
 
 // File Imports
-import connectDatabase from '@/config/connectDB';
-import generateToken from '@/utils/generateToken';
+import connectDatabase from './config/connectDB';
+import generateToken from './utils/generateToken';
 import { ROUTES } from './routes';
-import { errorHandler, notFound } from '@/middlewares/error.middleware';
+import { errorHandler, notFound } from './middlewares/error.middleware';
 import { pathBuilder } from './utils/helpers';
 
-import usersRoute from '@/routes/users.route';
-import postsRoute from '@/routes/posts.route';
+import usersRoute from './routes/users.route';
+import postsRoute from './routes/posts.route';
 import httpLogger from './middlewares/logger.middleware';
 
 // Initialize App

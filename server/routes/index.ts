@@ -1,4 +1,4 @@
-import healthRoute from '@/routes/health';
+import healthRoute from './health';
 import { Response, Request, NextFunction } from 'express';
 const mid1 = (req: Request, res: Response, next: NextFunction) => {
     console.log('m1');

@@ -8,7 +8,7 @@ import {
     userById,
     searchUserByQuery,
     getAllUsers,
-} from '@/controllers/users.controller';
+} from '../controllers/users.controller';
 import { protect, isAdmin } from '../middlewares/auth.middleware';
 
 const router = express.Router();

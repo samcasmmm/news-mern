@@ -4,8 +4,8 @@ import {
     createNewPost,
     getAllPosts,
     getPostById,
-} from '@/controllers/posts.controller';
-import { protect, isAdmin } from '@/middlewares/auth.middleware';
+} from '../controllers/posts.controller';
+import { protect, isAdmin } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 

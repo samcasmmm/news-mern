@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import Post, { IPosts } from '@/models/posts.model';
-import generateToken from '@/utils/generateToken';
-import User, { IUser } from '@/models/users.model';
-import { HTTP, throwError } from '@/helpers/httpsException';
+import Post, { IPosts } from '../models/posts.model';
+import generateToken from '../utils/generateToken';
+import User, { IUser } from '../models/users.model';
+import { HTTP, throwError } from '../helpers/httpsException';
 
 interface UpdateReq extends Request {
     user?: IUser;
@@ -24,7 +24,7 @@ const health = expressAsyncHandler(
             meta: null,
             data: null,
         });
-    },
+    }
 );
 
 /**
@@ -40,7 +40,7 @@ const createNewPost = expressAsyncHandler(
     async (
         req: UpdateReq,
         res: Response,
-        next: NextFunction,
+        next: NextFunction
     ): Promise<void> => {
         const { title, thumbnail, author, content } = req.body;
 
@@ -65,7 +65,7 @@ const createNewPost = expressAsyncHandler(
         } catch (error) {
             throwError(res, HTTP.INTERNAL_SERVER_ERROR, 'Error creating post');
         }
-    },
+    }
 );
 
 /**
@@ -99,7 +99,7 @@ const getAllPosts = expressAsyncHandler(
         } catch (error) {
             throwError(res, HTTP.INTERNAL_SERVER_ERROR, 'Error fetching posts');
         }
-    },
+    }
 );
 
 /**
@@ -149,7 +149,7 @@ const getPostById = expressAsyncHandler(
                 data: null,
             });
         }
-    },
+    }
 );
 
 export { health, createNewPost, getPostById, getAllPosts };

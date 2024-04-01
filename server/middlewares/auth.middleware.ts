@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import User, { IUser } from '@/models/users.model';
+import User, { IUser } from '../models/users.model';
 
 interface AuthRequest extends Request {
     user?: IUser;
@@ -14,7 +14,7 @@ interface TokenPayload extends JwtPayload {
 const verifyToken = async (
     req: AuthRequest,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
 ) => {
     let token: string | undefined;
 
@@ -27,7 +27,7 @@ const verifyToken = async (
             const secretKey = process.env.SECRET_KEY!;
             const decoded = jwt.verify(token, secretKey) as TokenPayload;
             const user: IUser | null = await User.findById(
-                decoded.userId,
+                decoded.userId
             ).select('-password');
             if (user) {
                 req.user = user;
@@ -77,7 +77,7 @@ const isAdmin = expressAsyncHandler(
                 const secretKey = process.env.SECRET_KEY!;
                 const decoded = jwt.verify(token, secretKey) as TokenPayload;
                 const user: IUser | null = await User.findById(
-                    decoded.userId,
+                    decoded.userId
                 ).select('-password');
                 if (user) {
                     req.user = user;
@@ -115,7 +115,7 @@ const isAdmin = expressAsyncHandler(
                 data: null,
             });
         }
-    },
+    }
 );
 
 export { protect, isAdmin };

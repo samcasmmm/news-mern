@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import User, { IUser } from '@/models/users.model';
-import generateToken from '@/utils/generateToken';
-import { HTTP, throwError } from '@/helpers/httpsException';
+import User, { IUser } from '../models/users.model';
+import generateToken from '../utils/generateToken';
+import { HTTP, throwError } from '../helpers/httpsException';
 
 /**
  * Check the health of the user route.
@@ -19,7 +19,7 @@ const health = expressAsyncHandler(
             meta: null,
             data: null,
         });
-    },
+    }
 );
 
 /**
@@ -56,7 +56,7 @@ const signIn = expressAsyncHandler(
             // throw new Error('Invalid Email or Password');
             throwError(res, HTTP.BAD_REQUEST, 'Invalid Email or Password');
         }
-    },
+    }
 );
 
 /**
@@ -106,7 +106,7 @@ const signUp = expressAsyncHandler(
             res.status(400);
             throw new Error('Invalid User Data');
         }
-    },
+    }
 );
 
 /**
@@ -144,7 +144,7 @@ const profile = expressAsyncHandler(
             res.status(404);
             throw new Error('User not found');
         }
-    },
+    }
 );
 
 /**
@@ -193,7 +193,7 @@ const updateProfile = expressAsyncHandler(
             res.status(404);
             throw new Error('User not found');
         }
-    },
+    }
 );
 
 /**
@@ -227,7 +227,7 @@ const userById = expressAsyncHandler(
             res.status(404);
             throw new Error('User not found');
         }
-    },
+    }
 );
 
 /**
@@ -314,7 +314,7 @@ const searchUserByQuery = expressAsyncHandler(
                 data: null,
             });
         }
-    },
+    }
 );
 
 enum UserRole {
@@ -402,7 +402,7 @@ const getAllUsers = expressAsyncHandler(
                 data: null,
             });
         }
-    },
+    }
 );
 
 export {

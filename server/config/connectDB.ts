@@ -1,4 +1,4 @@
-import { Print } from '@/utils/devHelper';
+import { Print } from '../utils/devHelper';
 import mongoose from 'mongoose';
 
 const connectDatabase = async () => {
